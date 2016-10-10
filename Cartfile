@@ -1,0 +1,4 @@
+github "imaginary-cloud/CameraManager" >= 3.0
+github "Alamofire/Alamofire" ~> 4.0
+github "SwiftyJSON/SwiftyJSON"
+github "marketplacer/keychain-swift" ~> 6.0
