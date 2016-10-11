@@ -100,63 +100,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         
         
         
-            /*
-        
-        //   print(API_Domain+"/api/messages/fetch/"+uid)
-        Alamofire.request("http://object90.com/json.php")
-             .responseJSON { (response) -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                guard response.result.isSuccess else {
-                    print("Error while fetching remote rooms: \(response.result.error)")
-                    //  completion(nil)
-                    return
-                }
-                let res = JSON(response.result.value!)
-                if let inbox = res["data"].array {
-                    
-                    var i = 0
-                    while i < inbox.count {
-                        var tsub = ""
-                        var tto = ""
-                        var tmsg = ""
-                        var tdate = ""
-                        var tid = ""
-                        
-                        
-                        if let sub = inbox[i]["subject"].string {
-                            tsub = sub
-                        }
-                        if let msg = inbox[i]["message"].string {
-                            tmsg = msg
-                        }
-                        if let to = inbox[i]["to"].string {
-                            tto = to
-                        }
-                        if let date = inbox[i]["date"].string {
-                            tdate = date
-                        }
-                        if let id = inbox[i]["id"].string {
-                            tid = id
-                        }
-                        
-                        self.messages [i] = [tsub, tmsg, tto, tdate, tid]
-                        
-                        i = i+1
-                        
-                    }
-                    self.tableView.reloadData()
-                    
-                    
-                }else{
-                    print("empty inbox")
-                }
-                
-                
- 
-                
-                
-        } */
-    }
+             }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -211,12 +155,12 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         
         
 
-        cell.lblDate.setRadius(radius: 6)
+        cell.lblDate.setRadius(radius: 4)
        // cell.imageView?.setRadius(radius: 35)
         cell.setNeedsLayout()
    
         
-        cell.btnAccept.setRadius(radius: 10)
+        cell.btnAccept.setRadius(radius: 13)
         cell.lblTo.text =  message[2] as? String
         cell.lblBody.text =  message[1] as? String
         cell.lblDate.text =  message[3] as? String

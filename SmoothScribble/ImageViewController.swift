@@ -17,11 +17,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     var touchOrigin: ScribbleView?
     
+    @IBOutlet var topHomePrev: UIView!
+    @IBOutlet var topNextPrev: UIView!
 
     @IBOutlet var btnReset: UIButton!
 
-    @IBOutlet var editButtonsView: UIView!
+    @IBOutlet var topStack: UIStackView!
     
+    
+    @IBOutlet var bottomStack: UIStackView!
     @IBOutlet var viewContainer: UIView!
     
     var screenSize: CGRect = UIScreen.main.bounds
@@ -32,12 +36,14 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
 
     @IBOutlet var imgView: UIImageView!
     
+    @IBOutlet var viewReset: UIView!
     
+    @IBOutlet var viewUse: UIView!
     
+    @IBOutlet var viewSubmit: UIView!
     @IBOutlet var lblInfo: UILabel!
     
     
-    @IBOutlet var btnDownload: UIButton!
     
     @IBAction func saveAs(_ sender: AnyObject) {
     
@@ -58,11 +64,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       // self.preferredInterfaceOrientationForPresentation =
-        let value = UIInterfaceOrientation.landscapeLeft.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
+      //  let value = UIInterfaceOrientation.landscapeLeft.rawValue
+     //   UIDevice.current.setValue(value, forKey: "orientation")
         
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+       self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     
@@ -81,11 +86,16 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         
     
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    
+        
+
+        
         
         
         scrollView.isScrollEnabled = false
         
-         imgView.image = image!
+         
+      //   imgView.image = image!
         
         viewContainer.addSubview(stackView)
 
@@ -93,7 +103,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         stackView.addArrangedSubview(hermiteScribbleView)
         
         
-                  landscapeOps()
+        portraitOps()
+ 
     }
     
  
@@ -118,9 +129,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     func landscapeOps(){
         
-        stageOps()
+       // stageOps()
         
-        editButtonsView.isHidden = false
         
         hermiteScribbleView.triggerLandscape()
         scrollView.contentSize = CGSize(width:  screenSize.height, height:  screenSize.height * 2)
@@ -131,7 +141,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         
         scrollView.setZoomScale(3.0, animated: false)
 
-        if(hermiteScribbleView.currentStage == 1) {
+        if(hermiteScribbleView.currentStage == 1 || hermiteScribbleView.currentStage == 2) {
             
             scrollView.contentOffset = CGPoint(x: screenSize.width * 1.8 , y: 0)
             hermiteScribbleView.backgroundLayer2.isHidden = true
@@ -154,7 +164,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     func portraitOps(){
         
         
-        hermiteScribbleView.currentStage = 0
+      //  hermiteScribbleView.currentStage = 0
 
         stageOps()
         
@@ -171,21 +181,48 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
 
         switch (hermiteScribbleView.currentStage) {
         
+        case 0:
+           topStack.isHidden = true
+           bottomStack.isHidden = false
+           viewReset.isHidden = true
+           viewUse.isHidden = false
+           viewSubmit.isHidden = true
+            
         case 1:
+            topStack.isHidden = false
+            bottomStack.isHidden = false
+            topNextPrev.isHidden = false
+            topHomePrev.isHidden = true
+            viewReset.isHidden = false
+            viewUse.isHidden = true
+            viewSubmit.isHidden = true
+              btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
             lblInfo.text = "CAN YOU.. WISH MY SON BERKLEY A HAPPY BIRTHDAY?"
-            btnReset.isHidden = true
-            btnDownload.isHidden = true
+           
+            
             
         case 2:
+            topStack.isHidden = false
+            bottomStack.isHidden = false
+            topNextPrev.isHidden = false
+            topHomePrev.isHidden = true
+            viewReset.isHidden = false
+            viewUse.isHidden = true
+            viewSubmit.isHidden = true
+            btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
             lblInfo.text = "PLEASE SIGN YOUR NAME"
-            btnReset.isHidden = true
-            btnDownload.isHidden = true
+           
 
             
         default:
-            lblInfo.text = "      "
-            btnReset.isHidden = false
-            btnDownload.isHidden = false
+            topStack.isHidden = false
+            bottomStack.isHidden = false
+            topNextPrev.isHidden = true
+            topHomePrev.isHidden = false
+            viewReset.isHidden = true
+            viewUse.isHidden = true
+            viewSubmit.isHidden = false
+            
             
         }
     }
@@ -197,20 +234,21 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func btnNext(_ sender: AnyObject) {
        // hermiteScribbleView.moveNext()
-        
-        
-
-        
-        if(hermiteScribbleView.currentStage < 2) {
+       
+        if(hermiteScribbleView.currentStage < 3) {
+            hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
             let value = UIInterfaceOrientation.landscapeLeft.rawValue
             UIDevice.current.setValue(value, forKey: "orientation")
             landscapeOps()
         }else {
             //reached last session
+                  hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
             let value = UIInterfaceOrientation.portrait.rawValue
             UIDevice.current.setValue(value, forKey: "orientation")
             portraitOps()
         }
+        
+        
 
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)

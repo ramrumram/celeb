@@ -34,9 +34,9 @@ class CameraViewController: UIViewController {
         } else if (currentCameraState == .ready) {
             addCameraToView()
         }
-
+*/
  
- */
+ 
         
         // Do any additional setup after loading the view.
     }
