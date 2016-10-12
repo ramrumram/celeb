@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
     }
     
     //Calls this function when the tap is recognized.
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }

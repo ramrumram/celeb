@@ -46,18 +46,17 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIStatusBarHidden</key>
-	<true/>
+	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Celebgram&apos;s Photo</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>to record movies</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>to record movies</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>NSAppTransportSecurity</key>
-    <dict>
-        <key>NSAllowsArbitraryLoads</key>
-        <true/>
-    </dict>
-
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

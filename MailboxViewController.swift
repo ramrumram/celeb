@@ -34,11 +34,16 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.setHidesBackButton(true, animated:false);
+
+          }
+    
     
     func loadMessages() {
         
         
-    //    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         
         

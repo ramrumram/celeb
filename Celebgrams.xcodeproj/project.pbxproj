@@ -26,6 +26,9 @@
 		D7135FF71DA7AC4A003FA1C1 /* KeychainSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7135FF21DA7AC4A003FA1C1 /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D7135FF81DA7AC4A003FA1C1 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7135FF31DA7AC4A003FA1C1 /* SwiftyJSON.framework */; };
 		D7135FF91DA7AC4A003FA1C1 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D7135FF31DA7AC4A003FA1C1 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D736B7251DAD12AF00E28419 /* SendMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */; };
+		D736B7271DAD395B00E28419 /* KMPlaceholderTextView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D736B7261DAD395B00E28419 /* KMPlaceholderTextView.framework */; };
+		D736B7281DAD395B00E28419 /* KMPlaceholderTextView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D736B7261DAD395B00E28419 /* KMPlaceholderTextView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D73C2F121DA2774C00A113F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73C2F111DA2774C00A113F1 /* LoginViewController.swift */; };
 		D73CFAEB1D994B49004DFE91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73CFAEA1D994B49004DFE91 /* HomeViewController.swift */; };
 		D749E2561D997EA100F15DE3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D749E2551D997EA100F15DE3 /* CameraViewController.swift */; };
@@ -43,6 +46,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				D7135FF91DA7AC4A003FA1C1 /* SwiftyJSON.framework in Embed Frameworks */,
+				D736B7281DAD395B00E28419 /* KMPlaceholderTextView.framework in Embed Frameworks */,
 				D7135FF71DA7AC4A003FA1C1 /* KeychainSwift.framework in Embed Frameworks */,
 				D749E2591D9982B900F15DE3 /* CameraManager.framework in Embed Frameworks */,
 				D7135FF51DA7AC4A003FA1C1 /* Alamofire.framework in Embed Frameworks */,
@@ -71,6 +75,8 @@
 		D7135FF11DA7AC4A003FA1C1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D7135FF21DA7AC4A003FA1C1 /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
 		D7135FF31DA7AC4A003FA1C1 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMessageViewController.swift; sourceTree = "<group>"; };
+		D736B7261DAD395B00E28419 /* KMPlaceholderTextView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KMPlaceholderTextView.framework; path = Carthage/Build/iOS/KMPlaceholderTextView.framework; sourceTree = "<group>"; };
 		D73C2F111DA2774C00A113F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = components/LoginViewController.swift; sourceTree = "<group>"; };
 		D73CFAEA1D994B49004DFE91 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = components/HomeViewController.swift; sourceTree = "<group>"; };
 		D749E2531D997CCD00F15DE3 /* CameraManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CameraManager.framework; path = Carthage/Build/iOS/CameraManager.framework; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7135FF81DA7AC4A003FA1C1 /* SwiftyJSON.framework in Frameworks */,
+				D736B7271DAD395B00E28419 /* KMPlaceholderTextView.framework in Frameworks */,
 				D7135FF61DA7AC4A003FA1C1 /* KeychainSwift.framework in Frameworks */,
 				D749E2581D9982B900F15DE3 /* CameraManager.framework in Frameworks */,
 				D7135FF41DA7AC4A003FA1C1 /* Alamofire.framework in Frameworks */,
@@ -98,6 +105,7 @@
 		3EA13A831BEBDA0600E2B70F = {
 			isa = PBXGroup;
 			children = (
+				D736B7261DAD395B00E28419 /* KMPlaceholderTextView.framework */,
 				D7135FF11DA7AC4A003FA1C1 /* Alamofire.framework */,
 				D7135FF21DA7AC4A003FA1C1 /* KeychainSwift.framework */,
 				D7135FF31DA7AC4A003FA1C1 /* SwiftyJSON.framework */,
@@ -131,6 +139,7 @@
 				D7135FDA1DA75FD0003FA1C1 /* PreviewView.swift */,
 				3EA13A911BEBDA0600E2B70F /* ImageViewController.swift */,
 				3EA13A931BEBDA0600E2B70F /* Main.storyboard */,
+				D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */,
 				D7135FE21DA76A2A003FA1C1 /* ImageRequestsTableViewController.swift */,
 				D77B6EA01DA66A20000AF300 /* Assets.xcassets */,
 				D73C2F111DA2774C00A113F1 /* LoginViewController.swift */,
@@ -249,6 +258,7 @@
 				3EA13A901BEBDA0600E2B70F /* AppDelegate.swift in Sources */,
 				3EA13AAD1BEBDA9500E2B70F /* Scribblable.swift in Sources */,
 				D7135FDB1DA75FD0003FA1C1 /* PreviewView.swift in Sources */,
+				D736B7251DAD12AF00E28419 /* SendMessageViewController.swift in Sources */,
 				D7135FDD1DA7600F003FA1C1 /* PhotoCaptureDelegate.swift in Sources */,
 				D73C2F121DA2774C00A113F1 /* LoginViewController.swift in Sources */,
 				3EA13AAE1BEBDA9500E2B70F /* UIBezierPathExtension.swift in Sources */,

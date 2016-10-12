@@ -19,7 +19,7 @@ class CameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    /*
+    
         cameraManager.showAccessPermissionPopupAutomatically = true
         cameraManager.writeFilesToPhoneLibrary = false
 
@@ -34,10 +34,11 @@ class CameraViewController: UIViewController {
         } else if (currentCameraState == .ready) {
             addCameraToView()
         }
-*/
- 
+
  
         
+        UINavigationBar.appearance().barStyle = .blackTranslucent
+
         // Do any additional setup after loading the view.
     }
 

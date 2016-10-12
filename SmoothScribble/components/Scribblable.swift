@@ -208,12 +208,12 @@ class HermiteScribbleView: ScribbleView, Scribblable
     
     func clearScribble()
     {
-      //  if(currentStage == 1) {
+        if(currentStage == 1) {
             backgroundLayer1.path = nil
-      //  }else{
+        }else{
             backgroundLayer2.path = nil
 
-      //  }
+        }
     }
     
     

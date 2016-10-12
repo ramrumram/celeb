@@ -95,7 +95,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         scrollView.isScrollEnabled = false
         
          
-      //   imgView.image = image!
+         imgView.image = image!
         
         viewContainer.addSubview(stackView)
 
@@ -116,7 +116,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
              //   print(screenSize.height)
         //from potrati..then its landsap
         if(fromInterfaceOrientation.isPortrait) {
-            hermiteScribbleView.currentStage = 0
+        
+            hermiteScribbleView.currentStage = 1
             landscapeOps()
            
         }else {
@@ -135,19 +136,19 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         hermiteScribbleView.triggerLandscape()
         scrollView.contentSize = CGSize(width:  screenSize.height, height:  screenSize.height * 2)
 
-        hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
+        //hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
         
         stageOps()
         
         scrollView.setZoomScale(3.0, animated: false)
 
-        if(hermiteScribbleView.currentStage == 1 || hermiteScribbleView.currentStage == 2) {
+        if(hermiteScribbleView.currentStage == 1 ) {
             
             scrollView.contentOffset = CGPoint(x: screenSize.width * 1.8 , y: 0)
             hermiteScribbleView.backgroundLayer2.isHidden = true
             hermiteScribbleView.backgroundLayer1.isHidden = false
 
-        }else {
+        }else if (hermiteScribbleView.currentStage == 2) {
          
             hermiteScribbleView.LineLayer.isHidden = true
             hermiteScribbleView.backgroundLayer1.isHidden = true
@@ -232,17 +233,38 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     }
     
     
-    @IBAction func btnNext(_ sender: AnyObject) {
-       // hermiteScribbleView.moveNext()
-       
-        if(hermiteScribbleView.currentStage < 3) {
-            hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
+    @IBAction func btnPrev(_ sender: AnyObject) {
+        
+        hermiteScribbleView.currentStage = hermiteScribbleView.currentStage - 1
+        
+        
+        if(hermiteScribbleView.currentStage > 0 && hermiteScribbleView.currentStage < 3) {
             let value = UIInterfaceOrientation.landscapeLeft.rawValue
             UIDevice.current.setValue(value, forKey: "orientation")
             landscapeOps()
         }else {
             //reached last session
-                  hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
+            
+            let value = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+            portraitOps()
+        }
+        
+    }
+    
+    @IBAction func btnNext(_ sender: AnyObject) {
+       // hermiteScribbleView.moveNext()
+       
+        hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
+
+        
+        if(hermiteScribbleView.currentStage > 0 && hermiteScribbleView.currentStage < 3) {
+                       let value = UIInterfaceOrientation.landscapeLeft.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+            landscapeOps()
+        }else {
+            //reached last session
+      
             let value = UIInterfaceOrientation.portrait.rawValue
             UIDevice.current.setValue(value, forKey: "orientation")
             portraitOps()

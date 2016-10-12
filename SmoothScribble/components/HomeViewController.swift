@@ -10,9 +10,12 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet var viewClose: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        viewClose.addBottomBorderWithColor(color: UIColor.red, width: 10)
         // Do any additional setup after loading the view.
     }
 

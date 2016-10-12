@@ -105,9 +105,13 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
                 }
             }
         }
+         navigationController?.navigationBar.isHidden = true
     }
     
+
+    
     override func viewWillDisappear(_ animated: Bool) {
+         navigationController?.navigationBar.isHidden = false
         sessionQueue.async { [unowned self] in
             if self.setupResult == .success {
                 self.session.stopRunning()
