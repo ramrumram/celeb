@@ -95,7 +95,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         scrollView.isScrollEnabled = false
         
          
-         imgView.image = image!
+        imgView.image = image!
         
         viewContainer.addSubview(stackView)
 
@@ -140,11 +140,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         
         stageOps()
         
-        scrollView.setZoomScale(3.0, animated: false)
+        scrollView.setZoomScale(2.0, animated: false)
 
         if(hermiteScribbleView.currentStage == 1 ) {
             
-            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.8 , y: 0)
+            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.0 , y: 0)
             hermiteScribbleView.backgroundLayer2.isHidden = true
             hermiteScribbleView.backgroundLayer1.isHidden = false
 
@@ -154,7 +154,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             hermiteScribbleView.backgroundLayer1.isHidden = true
             
             hermiteScribbleView.backgroundLayer2.isHidden = false
-            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.8, y: scrollView.frame.height * 2  )
+            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.0, y: scrollView.frame.height * 2  )
         }
         
 
@@ -173,7 +173,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
    
         scrollView.setZoomScale(1.3, animated: false)
        
-        scrollView.contentOffset = CGPoint(x: 0, y: scrollView.frame.height / 8  )
+        scrollView.contentOffset = CGPoint(x: scrollView.frame.width / 18, y: scrollView.frame.height / 8  )
 
     }
     
@@ -200,7 +200,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
               btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
             lblInfo.text = "CAN YOU.. WISH MY SON BERKLEY A HAPPY BIRTHDAY?"
            
-            
+             topNextPrev.backgroundColor = UIColor(hexString: "#455A6A")
             
         case 2:
             topStack.isHidden = false
@@ -212,7 +212,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             viewSubmit.isHidden = true
             btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
             lblInfo.text = "PLEASE SIGN YOUR NAME"
-           
+            
+            topNextPrev.backgroundColor = UIColor(hexString: "#2e2e2e").withAlphaComponent(0.7)
 
             
         default:

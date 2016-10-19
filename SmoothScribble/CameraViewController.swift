@@ -52,6 +52,7 @@ class CameraViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
         cameraManager.stopCaptureSession()
     }
     

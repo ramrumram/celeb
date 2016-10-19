@@ -17,5 +17,7 @@ class MailboxTableViewCell: UITableViewCell {
     
     @IBOutlet var btnAccept: UIButton!
     
+    
+    @IBOutlet var viewContainer: UIView!
     @IBOutlet var imgView: UIImageView!
 }

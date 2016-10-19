@@ -8,23 +8,44 @@
 
 import UIKit
 
-class SendMessageViewController: UIViewController {
+class SendMessageViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var viewClose: UIView!
+  
+    @IBOutlet var txtMessage: UITextView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
         viewPop.setRadius(radius: 15)
+       
         
 
-
-     //   viewClose.addBottomBorderWithColor(color: UIColor.red, width: 500)
+        txtMessage.text = "Add a caption"
+        txtMessage.textColor = UIColor.lightGray
+        
+                txtMessage.delegate = self
+    
+      
         
        //  self.hideKeyboardWhenTappedAround()
     }
 
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Add a caption"
+            textView.textColor = UIColor.lightGray      }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

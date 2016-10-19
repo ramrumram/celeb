@@ -10,6 +10,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     let blogSegueIdentifier = "MessageDetailSegue"
     let keychain = KeychainSwift()
     
+    
     @IBOutlet var imgReqBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +27,23 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         
         navigationController?.navigationBar.barTintColor = UIColor(hexString: "#2e2e2e")
 
-       navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+         let attributes = [NSFontAttributeName : UIFont(name: "AvenirNext-Medium", size: 22)!, NSForegroundColorAttributeName : UIColor.white]
+        
+        
+  
+        
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        
+        
+        let attrs = [NSUnderlineStyleAttributeName : 1, NSFontAttributeName : UIFont(name: "AvenirNext-DemiBold", size: 14)!,NSForegroundColorAttributeName : UIColor.black] as [String : Any]
+        
+        let buttonTitleStr = NSMutableAttributedString(string:"IMAGE REQUESTS", attributes:attrs)
+        let attributedString = NSMutableAttributedString(string:"")
 
+        attributedString.append(buttonTitleStr)
+        imgReqBtn.setAttributedTitle(attributedString, for: .normal)
         
-        
+
     }
     
     
@@ -58,7 +72,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
                 if let inbox = res["data"].array {
                     
                     var i = 0
-                                         while i < inbox.count {
+                     while i < inbox.count {
                        
                       
                         var tsub = ""
@@ -119,7 +133,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-          return self.messages.count;
+          return self.messages.count + 1;
         
     }
     
@@ -127,54 +141,67 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
-        let cellIdentifier = "MailboxTableViewCell"
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MailboxTableViewCell
         
-     
-        let message = self.messages[indexPath.row]!
+     //means exceeded the actual row count by 1...just to add an empty cell
+        if self.messages.count == indexPath.row {
+            let cellIdentifier = "dummyCell"
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MailboxTableViewCell
+            
+            return cell
+        }else {
+            let message = self.messages[indexPath.row]!
        
-       // DispatchQueue.main.async {
+            let cellIdentifier = "MailboxTableViewCell"
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! MailboxTableViewCell
 
-        
-        
-        
+           // DispatchQueue.main.async {
+
+            
+            
+            
+           
+            self.view.layoutIfNeeded()
+
+            
+            let imageName = "2"
+
+            let image = UIImage(named: imageName)
+
+            let rect =  CGRect(x: 30, y: 10, width: 50, height: 50)
+           // cell.imageView?.image = image
+          //  cell.imageView?.image?.draw(in: rect)
+            
+            var cellImg : UIImageView = UIImageView(frame: rect)
+            cellImg.image = UIImage(named: "2")
+            
+            cellImg.setRadius(radius: 25)
+
+            cell.addSubview(cellImg)
+            
+            
+
+            cell.lblDate.setRadius(radius: 5)
+           // cell.imageView?.setRadius(radius: 35)
+            cell.setNeedsLayout()
        
-        self.view.layoutIfNeeded()
-
-        
-        let imageName = "2"
-
-        let image = UIImage(named: imageName)
-
-        let rect =  CGRect(x: 30, y: 10, width: 50, height: 50)
-       // cell.imageView?.image = image
-      //  cell.imageView?.image?.draw(in: rect)
-        
-        var cellImg : UIImageView = UIImageView(frame: rect)
-        cellImg.image = UIImage(named: "2")
-        
-        cellImg.setRadius(radius: 25)
-
-        cell.addSubview(cellImg)
-        
-        
-
-        cell.lblDate.setRadius(radius: 4)
-       // cell.imageView?.setRadius(radius: 35)
-        cell.setNeedsLayout()
-   
-        
-        cell.btnAccept.setRadius(radius: 13)
-        cell.lblTo.text =  message[2] as? String
-        cell.lblBody.text =  message[1] as? String
-        cell.lblDate.text =  message[3] as? String
-        
-      //  cell.separatorInset = UIEdgeInsets.zero
-        cell.layoutMargins = UIEdgeInsets.zero
-        
-        
-        return cell
+            
+            cell.btnAccept.setRadius(radius: 13)
+            
+            
+            cell.lblTo.text =  message[2] as? String
+            cell.lblBody.text =  message[1] as? String
+            cell.lblDate.text =  " "+( message[3] as? String)! + " "
+            
+            cell.viewContainer.addBottomBorderWithColor(color: UIColor(hexString: "#e5e9ea"), width: 1)
+            
+          //  cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            
+            
+            return cell
+            }
     }
     
     
