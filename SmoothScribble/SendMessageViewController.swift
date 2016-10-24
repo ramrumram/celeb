@@ -31,7 +31,7 @@ class SendMessageViewController: UIViewController, UITextViewDelegate {
     
       
         
-       //  self.hideKeyboardWhenTappedAround()
+         self.hideKeyboardWhenTappedAround()
     }
 
     

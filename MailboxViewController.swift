@@ -24,15 +24,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         tableView.tableFooterView = UIView()
         
 
-        
-        navigationController?.navigationBar.barTintColor = UIColor(hexString: "#2e2e2e")
-
-         let attributes = [NSFontAttributeName : UIFont(name: "AvenirNext-Medium", size: 22)!, NSForegroundColorAttributeName : UIColor.white]
-        
-        
-  
-        
-        self.navigationController?.navigationBar.titleTextAttributes = attributes
+      
         
         
         let attrs = [NSUnderlineStyleAttributeName : 1, NSFontAttributeName : UIFont(name: "AvenirNext-DemiBold", size: 14)!,NSForegroundColorAttributeName : UIColor.black] as [String : Any]
@@ -43,14 +35,38 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         attributedString.append(buttonTitleStr)
         imgReqBtn.setAttributedTitle(attributedString, for: .normal)
         
+     
+        navigationController?.navigationBar.barTintColor = UIColor(hexString: "#2e2e2e")
+        
+        let attributes = [NSFontAttributeName : UIFont(name: "AvenirNext-Medium", size: 22)!, NSForegroundColorAttributeName : UIColor.white]
+        
+        
+        
+        
+        self.navigationController?.navigationBar.titleTextAttributes = attributes
+        
+      
+        
+     //   self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+
+        
 
     }
     
+  //  override var preferredStatusBarStyle: UIStatusBarStyle {
+      //  print("!!!!!!!!@@@@@@@@!!!!!!!!!")
+   //     return .lightContent
+  //  }
+  
     
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.setHidesBackButton(true, animated:false);
+        navigationController?.navigationBar.isHidden = false
+        
+        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
 
+        
           }
     
     
@@ -133,7 +149,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-          return self.messages.count + 1;
+          return self.messages.count ;
         
     }
     
@@ -143,6 +159,8 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         // Table view cells are reused and should be dequeued using a cell identifier.
         
      //means exceeded the actual row count by 1...just to add an empty cell
+        
+        //if will never work now..as extra padding is removed...just for ref..can be removed in future
         if self.messages.count == indexPath.row {
             let cellIdentifier = "dummyCell"
             
@@ -194,7 +212,6 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
             cell.lblBody.text =  message[1] as? String
             cell.lblDate.text =  " "+( message[3] as? String)! + " "
             
-            cell.viewContainer.addBottomBorderWithColor(color: UIColor(hexString: "#e5e9ea"), width: 1)
             
           //  cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero

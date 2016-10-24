@@ -17,6 +17,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     var touchOrigin: ScribbleView?
     
+    
     @IBOutlet var topHomePrev: UIView!
     @IBOutlet var topNextPrev: UIView!
 
@@ -43,6 +44,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var viewSubmit: UIView!
     @IBOutlet var lblInfo: UILabel!
     
+    var currentOrientation = "portrait"
+    
+    @IBOutlet var imgFilter: UIImageView!
     
     
     @IBAction func saveAs(_ sender: AnyObject) {
@@ -86,10 +90,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         
     
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-    
-        
-
-        
         
         
         scrollView.isScrollEnabled = false
@@ -103,24 +103,46 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         stackView.addArrangedSubview(hermiteScribbleView)
         
         
+//        applyFilter
+   
+  
+     /*   let point = CGPoint()
+        UIGraphicsBeginImageContextWithOptions((imgView.image?.size)!, false, 0.0)
+        imgView.image?.draw(in: CGRect(x: 0, y: 0, width: (imgView.image?.size.width)!, height: (imgView.image?.size.height)!))
+        imgFilter.image?.draw(in: CGRect(x: point.x, y: point.y, width: (imgView.image?.size.width)!, height: (imgView.image?.size.height)!))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        imgView.image = newImage
+        
+        */
+        
         portraitOps()
  
     }
     
  
-  
+
+ 
+
     
     
     override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
        
-             //   print(screenSize.height)
         //from potrati..then its landsap
         if(fromInterfaceOrientation.isPortrait) {
         
-            hermiteScribbleView.currentStage = 1
+           hermiteScribbleView.currentStage = 1
             landscapeOps()
            
         }else {
+            
+            // if it is moving to potrait and passed landscape it should be the last scene...
+            //so if user manually roates the screen bing him to last
+            if (hermiteScribbleView.currentStage > 0) {
+                hermiteScribbleView.currentStage = 3
+            }
             
             portraitOps()
         }
@@ -130,13 +152,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     func landscapeOps(){
         
-       // stageOps()
         
-        
+        currentOrientation = "landscape"
+       
         hermiteScribbleView.triggerLandscape()
         scrollView.contentSize = CGSize(width:  screenSize.height, height:  screenSize.height * 2)
 
-        //hermiteScribbleView.currentStage = hermiteScribbleView.currentStage + 1
         
         stageOps()
         
@@ -144,7 +165,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
 
         if(hermiteScribbleView.currentStage == 1 ) {
             
-            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.0 , y: 0)
+            scrollView.contentOffset = CGPoint(x: screenSize.width * 1.0 , y: -(scrollView.frame.height * 1.3))
             hermiteScribbleView.backgroundLayer2.isHidden = true
             hermiteScribbleView.backgroundLayer1.isHidden = false
 
@@ -165,16 +186,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     func portraitOps(){
         
         
-      //  hermiteScribbleView.currentStage = 0
 
+        currentOrientation = "portrait"
+        
+
+        
         stageOps()
         
-        hermiteScribbleView.triggerPotrait()
-   
-        scrollView.setZoomScale(1.3, animated: false)
+                hermiteScribbleView.triggerPotrait()
+        
+        scrollView.setZoomScale(1.0, animated: false)
        
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.width / 18, y: scrollView.frame.height / 8  )
-
     }
     
     func stageOps(){
@@ -198,9 +220,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             viewUse.isHidden = true
             viewSubmit.isHidden = true
               btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-            lblInfo.text = "CAN YOU.. WISH MY SON BERKLEY A HAPPY BIRTHDAY?"
+            lblInfo.text = "Requested message goes here..."
            
-             topNextPrev.backgroundColor = UIColor(hexString: "#455A6A")
+
             
         case 2:
             topStack.isHidden = false
@@ -211,9 +233,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             viewUse.isHidden = true
             viewSubmit.isHidden = true
             btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-            lblInfo.text = "PLEASE SIGN YOUR NAME"
+            lblInfo.text = "Please sign your name."
             
-            topNextPrev.backgroundColor = UIColor(hexString: "#2e2e2e").withAlphaComponent(0.7)
+          //  topNextPrev.backgroundColor = UIColor(hexString: "#2e2e2e").withAlphaComponent(0.7)
 
             
         default:
@@ -345,6 +367,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         stackView.spacing = 10
         
         stackView.distribution = UIStackViewDistribution.fillEqually
+        
+        if( currentOrientation == "portrait") {
+            scrollView.contentOffset = CGPoint(x: scrollView.frame.width / 18, y: 0  )
+        }
+        
     }
     
   

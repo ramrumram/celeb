@@ -37,16 +37,24 @@ class CameraViewController: UIViewController {
 
  
         
-        UINavigationBar.appearance().barStyle = .blackTranslucent
+    //    self.navigationController?.navigationBar.barStyle = UIBarStyle.default
 
         // Do any additional setup after loading the view.
     }
 
-    
+    /*  override var preferredStatusBarStyle: UIStatusBarStyle {
+        
+        print("!!!!!!!!@@@@@@@@!!!!!!!!!")
+             return UIStatusBarStyle.lightContent
+        
+          }
+    */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        super.viewWillDisappear(animated)
         navigationController?.navigationBar.isHidden = true
+         //  self.navigationController?.setNavigationBarHidden(true, animated: true)
         cameraManager.resumeCaptureSession()
     }
     

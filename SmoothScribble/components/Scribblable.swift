@@ -24,6 +24,7 @@ class ScribbleView: UIView
 {
     let backgroundLayer1 = CAShapeLayer()
     let backgroundLayer2 = CAShapeLayer()
+    
     let LineLayer = CAShapeLayer()
     let LineLayer2 = CAShapeLayer()
     
@@ -44,6 +45,8 @@ class ScribbleView: UIView
         LineLayer.backgroundColor = UIColor.white.cgColor
          LineLayer2.backgroundColor = UIColor.white.cgColor
         
+        backgroundLayer1.lineCap = kCALineCapRound
+                backgroundLayer2.lineCap = kCALineCapRound
         backgroundLayer2.strokeColor = UIColor.white.cgColor
         backgroundLayer2.fillColor = nil
         backgroundLayer2.lineWidth = 3
@@ -135,8 +138,8 @@ class HermiteScribbleView: ScribbleView, Scribblable
         backgroundLayer2.transform = CATransform3DMakeScale(1, 1, 1);
         backgroundLayer1.position = CGPoint(x: 0, y: 0);
         backgroundLayer2.position = CGPoint(x: 0, y: 0 );
-           LineLayer.position = CGPoint(x: screenHeight / 2, y: screenHeight / 4 );
-           LineLayer2.position = CGPoint(x: screenHeight / 2, y: screenHeight / 2.3 );
+           LineLayer.position = CGPoint(x: screenHeight / 2.1, y: screenHeight / 4 );
+           LineLayer2.position = CGPoint(x: screenHeight / 2.1, y: screenHeight / 2.3 );
            LineLayer.isHidden = false
            LineLayer2.isHidden = false
         
@@ -149,7 +152,7 @@ class HermiteScribbleView: ScribbleView, Scribblable
         backgroundLayer1.isHidden = false
          backgroundLayer1.transform = CATransform3DMakeScale(0.5, 0.5, 1);
           backgroundLayer2.transform = CATransform3DMakeScale(0.5, 0.5, 1);
-        backgroundLayer1.position = CGPoint(x: screenWidth / 10, y: screenHeight / 5);
+        backgroundLayer1.position = CGPoint(x: screenWidth / 10, y: 0);
         backgroundLayer2.position = CGPoint(x: screenWidth / 10, y: screenHeight / 1.5);
         
         LineLayer.isHidden = true
@@ -170,22 +173,27 @@ class HermiteScribbleView: ScribbleView, Scribblable
     func beginScribble(_ point: CGPoint)
     {
         
-        
         interpolationPoints = [point]
     }
 
     func appendScribble(_ point: CGPoint)
     {
+        if(currentStage == 1 || currentStage == 2) {
+      
         interpolationPoints.append(point)
         
+          
         hermitePath.removeAllPoints()
         hermitePath.interpolatePointsWithHermite(interpolationPoints)
         
         drawingLayer.path = hermitePath.cgPath
+        }
+ 
     }
     
     func endScribble()
     {
+        
         if(currentStage == 1) {
         if let backgroundPath = backgroundLayer1.path
         {
@@ -205,6 +213,7 @@ class HermiteScribbleView: ScribbleView, Scribblable
         hermitePath.removeAllPoints()
         
         drawingLayer.path = hermitePath.cgPath
+ 
     }
     
     func clearScribble()
