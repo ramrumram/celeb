@@ -14,22 +14,70 @@ class VideoViewController: UIViewController {
     var videoURL = NSURL(string: "")
     
     @IBOutlet var viewVideo: UIView!
+    var oplayer: AVPlayer!
+
+    @IBOutlet var viewUse: UIView!
+    
+    @IBOutlet var viewSend: UIView!
+    
+    
+    @IBOutlet var lblRewVideo: UILabel!
+    
+    
+    @IBOutlet var viewHomePrev: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        let player = AVPlayer(url:  videoURL! as URL)
+        
+     /*  let player = AVQueuePlayer()
+       let playerLayer = AVPlayerLayer(player: player)
+       let playerItem = AVPlayerItem(url: videoURL! as URL)
+       let playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+        
         let playerController = AVPlayerViewController()
+        playerController.showsPlaybackControls = false
         
         playerController.player = player
         self.addChildViewController(playerController)
         viewVideo.addSubview(playerController.view)
         playerController.view.frame = viewVideo.frame
         
-        player.play()
+        player.play()    
+*/
+        
+       
+        let player = AVPlayer(url:  videoURL! as URL)
+        oplayer = player
+        let playerController = AVPlayerViewController()
+        playerController.showsPlaybackControls = false
+
+        playerController.player = oplayer
+        self.addChildViewController(playerController)
+        viewVideo.addSubview(playerController.view)
+        playerController.view.frame = viewVideo.frame
+        
+        
+//        oplayer.actionAtItemEnd = .one
+
+        
+        NotificationCenter.default.addObserver(self,
+                                                         selector: #selector(VideoViewController.playerItemDidReachEnd),
+                                                         name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                                                         object: oplayer.currentItem)
+        
+        
+        
+        oplayer.play()
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    func playerItemDidReachEnd() {
+        oplayer.seek(to: kCMTimeZero)
+        oplayer.play()
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,12 +85,38 @@ class VideoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func btnUseClick(_ sender: Any) {
+        oplayer.pause()
+        viewUse.isHidden = true
+        viewSend.isHidden = false
+        lblRewVideo.isHidden = true
+        viewHomePrev.isHidden = false
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
+        
+        
+        oplayer.pause()
+        
+       
+        let fileManager = FileManager.default
+        
+        // Delete 'hello.swift' file
+     //   let path = String(contentsOf: videoURL as! URL)
+        
+        do {
+
+        //    try fileManager.removeItem(atPath: (videoURL?.path)!)
+        }
+        catch let error as NSError {
+         //   print("Ooops! Something went wrong: \(error)")
+        }
+ 
     }
     
     /*

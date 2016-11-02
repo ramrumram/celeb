@@ -17,6 +17,10 @@ class HomeViewController: UIViewController {
     @IBOutlet var viewClose: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
         let point = CGPoint()
         UIGraphicsBeginImageContextWithOptions((imgview.image?.size)!, false, 0.0)
         imgview.image?.draw(in: CGRect(x: 0, y: 0, width: (imgview.image?.size.width)!, height: (imgview.image?.size.height)!))

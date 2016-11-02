@@ -2,6 +2,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+//import CameraManager
+
 class MailboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate   {
     
     @IBOutlet var tableView: UITableView!
@@ -9,12 +11,15 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     var messages = Dictionary<Int, NSMutableArray>()
     let blogSegueIdentifier = "MessageDetailSegue"
     let keychain = KeychainSwift()
-    
+   // let cameraManager = CameraManager()
+
     
     @IBOutlet var imgReqBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        cameraManager.showAccessPermissionPopupAutomatically = true
+
         
        
         tableView.delegate = self

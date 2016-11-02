@@ -13,6 +13,18 @@ import Photos
 class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     // MARK: View Controller Life Cycle
     
+    var Counter = 10
+    var timer = Timer()
+
+    
+    @IBOutlet var stackRecord: UIView!
+    
+    @IBOutlet var btnTimer: UIButton!
+    
+    @IBOutlet var viewReqMsg: UIView!
+    
+    @IBOutlet var lblRecordVideo: UILabel!
+    @IBOutlet var stackTimer: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,8 +81,14 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
         }
         changeCamera()
         toggleCaptureMode()
-        
+     
+
     }
+    
+    
+
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -85,7 +103,7 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
                 
             case .notAuthorized:
                 DispatchQueue.main.async { [unowned self] in
-                    let message = NSLocalizedString("AVCam doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
+                    let message = NSLocalizedString("Cgrams doesn't have permission to use the camera, please change privacy settings", comment: "Alert message when the user has denied access to the camera")
                     let alertController = UIAlertController(title: "AVCam", message: message, preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Alert OK button"), style: .cancel, handler: nil))
                     alertController.addAction(UIAlertAction(title: NSLocalizedString("Settings", comment: "Alert button to open Settings"), style: .`default`, handler: { action in
@@ -125,14 +143,14 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
     
     override var shouldAutorotate: Bool {
         // Disable autorotation of the interface when recording is in progress.
-        if let movieFileOutput = movieFileOutput {
+        /*if let movieFileOutput = movieFileOutput {
             return !movieFileOutput.isRecording
-        }
-        return true
+        }*/
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return .portrait
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -485,10 +503,36 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
     
     @IBOutlet private weak var resumeButton: UIButton!
     
+    private var destroySession = false
+  
+    @IBAction func btnReset(_ sender: Any) {
+        
+        destroySession = true
+        
+        stopVideo()
+    }
+
+    
+    @IBAction func btnUse(_ sender: Any) {
+        destroySession = false
+        
+        stopVideo()
+    }
+    
     @IBAction private func toggleMovieRecording(_ recordButton: UIButton) {
         guard let movieFileOutput = self.movieFileOutput else {
             return
         }
+        
+     
+        
+        stackRecord.isHidden = true
+        stackTimer.isHidden = false
+        
+        
+        viewReqMsg.isHidden = false
+        lblRecordVideo.isHidden = true
+        
         
         /*
          Disable the Camera button until recording finishes, and disable
@@ -504,6 +548,10 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
          accessed on the main thread and session configuration is done on the session queue.
          */
         let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection.videoOrientation
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.update), userInfo: nil, repeats: true);
+        
         
         sessionQueue.async { [unowned self] in
             if !movieFileOutput.isRecording {
@@ -534,11 +582,38 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
         }
     }
     
+    
+    func  stopVideo()  {
+        Counter = 10;
+        self.timer.invalidate()
+        self.movieFileOutput?.stopRecording()
+         btnTimer.setTitle(String(Counter), for: [])
+        stackRecord.isHidden = false
+        stackTimer.isHidden = true
+        viewReqMsg.isHidden = true
+        lblRecordVideo.isHidden = false
+        
+    }
+    
+    
+    func update() {
+
+        Counter = Counter - 1
+        btnTimer.setTitle(String(Counter), for: [])
+       // self.recordButton.setTitle(String(Counter), for: [])
+        if (Counter == 0) {
+            self.stopVideo()
+      
+        }
+    }
+    
+
+    
     func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
         // Enable the Record button to let the user stop the recording.
         DispatchQueue.main.async { [unowned self] in
             self.recordButton.isEnabled = true
-            self.recordButton.setTitle(NSLocalizedString("Stop", comment: "Recording button stop title"), for: [])
+          //  self.recordButton.setTitle(NSLocalizedString("10", comment: "Recording button stop title"), for: [])
         }
     }
     
@@ -607,25 +682,59 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
             cleanup()
         }
         
+        
+        finishRecording(outputFileURL: outputFileURL)
+        
+    }
+    
+    
+    
+    
+    func finishRecording(outputFileURL: URL!) {
+        
+        
+        
         // Enable the Camera and Record buttons to let the user switch camera and start another recording.
         DispatchQueue.main.async { [unowned self] in
             
-            let vc: VideoViewController? = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoViewController
-            if let validVC: VideoViewController = vc {
-                validVC.videoURL = outputFileURL as NSURL?
-                self.navigationController?.pushViewController(validVC, animated: true)
+            //if true destroy the video and stay in the screen
+            if self.destroySession == false {
+                let vc: VideoViewController? = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoViewController
+                if let validVC: VideoViewController = vc {
+                    validVC.videoURL = outputFileURL as NSURL?
+                    self.navigationController?.pushViewController(validVC, animated: true)
+                    
+                }
+
+                
+            }else {
+             
+                
+                let path = outputFileURL.path
+                if FileManager.default.fileExists(atPath: path) {
+                    do {
+                        try FileManager.default.removeItem(atPath: path)
+                    }
+                    catch {
+                        print("Could not remove file at url: \(outputFileURL)")
+                    }
+                }
                 
             }
             
             
+            
             // Only enable the ability to change camera if the device has more than one camera.
-           
+            
             self.recordButton.isEnabled = true
-            self.recordButton.setTitle(NSLocalizedString("Record", comment: "Recording button record title"), for: [])
+         //   self.recordButton.setTitle(NSLocalizedString("Record", comment: "Recording button record title"), for: [])
         }
+
     }
+ 
     
     // MARK: KVO and Notifications
+    
     
     private var sessionRunningObserveContext = 0
     

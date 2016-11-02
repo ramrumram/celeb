@@ -22,10 +22,9 @@ class CameraViewController: UIViewController {
     
         cameraManager.showAccessPermissionPopupAutomatically = true
         cameraManager.writeFilesToPhoneLibrary = false
-
+        
         cameraManager.flashMode = .auto
         cameraManager.cameraDevice = .front
-
         
         let currentCameraState = cameraManager.currentCameraStatus()
         
@@ -53,6 +52,11 @@ class CameraViewController: UIViewController {
         super.viewWillAppear(animated)
         
         super.viewWillDisappear(animated)
+        
+
+
+        
+        
         navigationController?.navigationBar.isHidden = true
          //  self.navigationController?.setNavigationBarHidden(true, animated: true)
         cameraManager.resumeCaptureSession()

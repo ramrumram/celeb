@@ -147,12 +147,13 @@ class HermiteScribbleView: ScribbleView, Scribblable
 
     func triggerPotrait() {
         
+        
          backgroundLayer1.lineWidth = 5
          backgroundLayer2.lineWidth = 5
         backgroundLayer1.isHidden = false
          backgroundLayer1.transform = CATransform3DMakeScale(0.5, 0.5, 1);
           backgroundLayer2.transform = CATransform3DMakeScale(0.5, 0.5, 1);
-        backgroundLayer1.position = CGPoint(x: screenWidth / 10, y: 0);
+        backgroundLayer1.position = CGPoint(x: screenWidth / 10, y: -(screenHeight / 27));
         backgroundLayer2.position = CGPoint(x: screenWidth / 10, y: screenHeight / 1.5);
         
         LineLayer.isHidden = true

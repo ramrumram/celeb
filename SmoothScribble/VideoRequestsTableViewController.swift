@@ -2,6 +2,8 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+//import CameraManager
+
 class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, UITableViewDelegate   {
     
     @IBOutlet var tableView: UITableView!
@@ -9,12 +11,14 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
     var messages = Dictionary<Int, NSMutableArray>()
     let blogSegueIdentifier = "MessageDetailSegue"
     let keychain = KeychainSwift()
+    // let cameraManager = CameraManager()
     
     @IBOutlet var vidReqBtn: UIButton!
-    
     @IBOutlet var imgReqBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //        cameraManager.showAccessPermissionPopupAutomatically = true
         
         
         
@@ -24,6 +28,17 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
         loadMessages()
         tableView.tableFooterView = UIView()
         
+        
+        
+        
+        
+        let attrs = [NSUnderlineStyleAttributeName : 1, NSFontAttributeName : UIFont(name: "AvenirNext-DemiBold", size: 14)!,NSForegroundColorAttributeName : UIColor.black] as [String : Any]
+        
+        let buttonTitleStr = NSMutableAttributedString(string:"VIDEO REQUESTS", attributes:attrs)
+        let attributedString = NSMutableAttributedString(string:"")
+        
+        attributedString.append(buttonTitleStr)
+        vidReqBtn.setAttributedTitle(attributedString, for: .normal)
         
         
         navigationController?.navigationBar.barTintColor = UIColor(hexString: "#2e2e2e")
@@ -36,21 +51,26 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         
         
-        let attrs = [NSUnderlineStyleAttributeName : 1, NSFontAttributeName : UIFont(name: "AvenirNext-DemiBold", size: 14)!,NSForegroundColorAttributeName : UIColor.black] as [String : Any]
         
-        let buttonTitleStr = NSMutableAttributedString(string:"VIDEO REQUESTS", attributes:attrs)
-        let attributedString = NSMutableAttributedString(string:"")
+        //   self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         
-        attributedString.append(buttonTitleStr)
-        vidReqBtn.setAttributedTitle(attributedString, for: .normal)
         
         
     }
     
+    //  override var preferredStatusBarStyle: UIStatusBarStyle {
+    //  print("!!!!!!!!@@@@@@@@!!!!!!!!!")
+    //     return .lightContent
+    //  }
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.setHidesBackButton(true, animated:false);
+        navigationController?.navigationBar.isHidden = false
+        
+        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        
         
     }
     
@@ -62,7 +82,7 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
         
         
         
-        Alamofire.request("http://object90.com/json.php").responseJSON { response in
+        Alamofire.request("http://object90.com/json1.php").responseJSON { response in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             
@@ -134,7 +154,7 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.messages.count + 1;
+        return self.messages.count ;
         
     }
     
@@ -144,6 +164,8 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
         // Table view cells are reused and should be dequeued using a cell identifier.
         
         //means exceeded the actual row count by 1...just to add an empty cell
+        
+        //if will never work now..as extra padding is removed...just for ref..can be removed in future
         if self.messages.count == indexPath.row {
             let cellIdentifier = "dummyCell"
             
@@ -195,7 +217,6 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
             cell.lblBody.text =  message[1] as? String
             cell.lblDate.text =  " "+( message[3] as? String)! + " "
             
-            cell.viewContainer.addBottomBorderWithColor(color: UIColor(hexString: "#e5e9ea"), width: 1)
             
             //  cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
