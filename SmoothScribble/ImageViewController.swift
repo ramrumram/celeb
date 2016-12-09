@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import KeychainSwift
+import Alamofire
 class ImageViewController: UIViewController, UIScrollViewDelegate
 {
     let stackView = UIStackView()
@@ -17,6 +18,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     var touchOrigin: ScribbleView?
     
+    let keychain = KeychainSwift()
     
     @IBOutlet var topHomePrev: UIView!
     @IBOutlet var topNextPrev: UIView!
@@ -56,12 +58,39 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
         let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-    //    UIImageWriteToSavedPhotosAlbum(
-//, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-
-        UIImageWriteToSavedPhotosAlbum(snapshotImageFromMyView!, nil,nil, nil);
-
+     
         
+        //UIImageWriteToSavedPhotosAlbum(snapshotImageFromMyView!, nil,nil, nil);
+    
+            
+            // define parameters
+            let parameters = [
+                "hometown": "yalikavak",
+                "living": "istanbul"
+            ]
+            
+            Alamofire.upload(multipartFormData: { multipartFormData in
+                if let imageData = UIImageJPEGRepresentation(snapshotImageFromMyView!, 1) {
+                    multipartFormData.append(imageData, withName: "file", fileName: "file.png", mimeType: "image/png")
+                }
+                
+                for (key, value) in parameters {
+                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                }}, to: "http://192.168.2.17:8081/cgws/server.php", method: .post, headers: ["Authorization": "auth_token"],
+                    encodingCompletion: { encodingResult in
+                        switch encodingResult {
+                        case .success(let upload, _, _):
+                            upload.response { [weak self] response in
+                                guard let strongSelf = self else {
+                                    return
+                                }
+                                debugPrint(response)
+                            }
+                        case .failure(let encodingError):
+                            print("error:\(encodingError)")
+                        }
+            })
+      
         
     }
     
@@ -182,6 +211,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     }
     
     
+    
+    @IBAction func btnSend(_ sender: Any) {
+        
+        
+    }
 
     func portraitOps(){
         
@@ -220,7 +254,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
             viewUse.isHidden = true
             viewSubmit.isHidden = true
               btnReset.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-            lblInfo.text = "Requested message goes here..."
+            
+            lblInfo.text = keychain.get("currentReqmsg")
            
 
             

@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import KeychainSwift
+
 
 class LoginViewController: UIViewController {
 
+    let keychain = KeychainSwift()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +36,20 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func login(_ sender: Any) {
+        
+        let uid = "1"
+        keychain.set(uid, forKey: "CG_uid")
+       
+        
+        let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+ 
+        
+                self.navigationController?.pushViewController(vc!, animated: true)
+        
+        
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {

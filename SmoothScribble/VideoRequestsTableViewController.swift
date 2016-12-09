@@ -75,14 +75,29 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
     }
     
     
+    @IBAction func actionCamera(_ sender: UIButton) {
+        
+        self.keychain.set(self.messages[sender.tag]?[4] as! String, forKey: "currentReqID")
+        self.keychain.set(self.messages[sender.tag]?[1] as! String, forKey: "currentReqmsg")
+        
+  
+        
+        let vc: VideoRecorderViewController? = self.storyboard?.instantiateViewController(withIdentifier: "videoRecorderController") as? VideoRecorderViewController
+        
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+
+    }
+    
+    
     func loadMessages() {
         
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         
-        
-        Alamofire.request("http://object90.com/json1.php").responseJSON { response in
+        let cid = self.keychain.get("CG_uid")!
+        Alamofire.request("https://cgram.io/russ/cgrams-web/videojson.php?cid="+cid).responseJSON { response in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             
@@ -96,30 +111,29 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
                     while i < inbox.count {
                         
                         
-                        var tsub = ""
+                        var tpic = ""
                         var tto = ""
                         var tmsg = ""
                         var tdate = ""
                         var tid = ""
                         
                         
-                        if let sub = inbox[i]["subject"].string {
-                            tsub = sub
+                        if let pic = inbox[i]["pic"].string {
+                            tpic = pic
                         }
                         if let msg = inbox[i]["message"].string {
                             tmsg = msg
                         }
-                        if let to = inbox[i]["to"].string {
+                        if let to = inbox[i]["recipient"].string {
                             tto = to
                         }
-                        if let date = inbox[i]["date"].string {
-                            tdate = date
-                        }
+                        
                         if let id = inbox[i]["id"].string {
                             tid = id
                         }
                         
-                        self.messages [i] = [tsub, tmsg, tto, tdate, tid]
+                        self.messages [i] = [tpic, tmsg, tto, tdate, tid]
+                        
                         
                         i = i+1
                         
@@ -188,20 +202,22 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
             self.view.layoutIfNeeded()
             
             
-            let imageName = "2"
+            let imgurl =  message[0] as? String
+            let URL = Foundation.URL(string: imgurl!)!
+            let placeholderImage = UIImage(named: "icon")!
             
-            let image = UIImage(named: imageName)
             
             let rect =  CGRect(x: 30, y: 10, width: 50, height: 50)
             // cell.imageView?.image = image
             //  cell.imageView?.image?.draw(in: rect)
             
-            var cellImg : UIImageView = UIImageView(frame: rect)
-            cellImg.image = UIImage(named: "2")
-            
+            let cellImg : UIImageView = UIImageView(frame: rect)
+            //cellImg.image = UIImage(named: "2")
+            cellImg.af_setImage(withURL: URL, placeholderImage: placeholderImage)
             cellImg.setRadius(radius: 25)
             
             cell.addSubview(cellImg)
+
             
             
             
@@ -211,7 +227,7 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
             
             
             cell.btnAccept.setRadius(radius: 13)
-            
+            cell.btnAccept.tag = indexPath.row
             
             cell.lblTo.text =  message[2] as? String
             cell.lblBody.text =  message[1] as? String

@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 import KeychainSwift
 //import CameraManager
@@ -9,7 +10,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     @IBOutlet var tableView: UITableView!
     //var visits = [String : AnyObject]()
     var messages = Dictionary<Int, NSMutableArray>()
-    let blogSegueIdentifier = "MessageDetailSegue"
+    let blogSegueIdentifier = "imageCaptureSegue"
     let keychain = KeychainSwift()
    // let cameraManager = CameraManager()
 
@@ -81,8 +82,8 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         
-        
-        Alamofire.request("http://object90.com/json.php").responseJSON { response in
+        let cid = self.keychain.get("CG_uid")!
+        Alamofire.request("https://cgram.io/russ/cgrams-web/imagejson.php?cid="+cid).responseJSON { response in
   UIApplication.shared.isNetworkActivityIndicatorVisible = false
        
             
@@ -96,30 +97,28 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
                      while i < inbox.count {
                        
                       
-                        var tsub = ""
+                        var tpic = ""
                         var tto = ""
                         var tmsg = ""
                         var tdate = ""
                         var tid = ""
                         
                         
-                        if let sub = inbox[i]["subject"].string {
-                            tsub = sub
+                        if let pic = inbox[i]["pic"].string {
+                            tpic = pic
                         }
                         if let msg = inbox[i]["message"].string {
                             tmsg = msg
                         }
-                        if let to = inbox[i]["to"].string {
+                        if let to = inbox[i]["recipient"].string {
                             tto = to
                         }
-                        if let date = inbox[i]["date"].string {
-                            tdate = date
-                        }
+                      
                         if let id = inbox[i]["id"].string {
                             tid = id
                         }
                         
-                        self.messages [i] = [tsub, tmsg, tto, tdate, tid]
+                        self.messages [i] = [tpic, tmsg, tto, tdate, tid]
                         
                         i = i+1
                         
@@ -160,6 +159,25 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     
     
+    @IBAction func actionCamera(_ sender: UIButton) {
+     
+       
+
+        self.keychain.set(self.messages[sender.tag]?[4] as! String, forKey: "currentReqID")
+        self.keychain.set(self.messages[sender.tag]?[1] as! String, forKey: "currentReqmsg")
+
+        
+        
+        let vc: CameraViewController? = self.storyboard?.instantiateViewController(withIdentifier: "cameraViewController") as? CameraViewController
+        
+        
+        self.navigationController?.pushViewController(vc!, animated: true)
+        
+        
+
+    }
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Table view cells are reused and should be dequeued using a cell identifier.
         
@@ -182,27 +200,24 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
            // DispatchQueue.main.async {
 
             
-            
-            
            
             self.view.layoutIfNeeded()
-
+          
+            let imgurl =  message[0] as? String
+            let URL = Foundation.URL(string: imgurl!)!
+            let placeholderImage = UIImage(named: "icon")!
             
-            let imageName = "2"
-
-            let image = UIImage(named: imageName)
-
+            
             let rect =  CGRect(x: 30, y: 10, width: 50, height: 50)
            // cell.imageView?.image = image
           //  cell.imageView?.image?.draw(in: rect)
             
-            var cellImg : UIImageView = UIImageView(frame: rect)
-            cellImg.image = UIImage(named: "2")
-            
+            let cellImg : UIImageView = UIImageView(frame: rect)
+            //cellImg.image = UIImage(named: "2")
+            cellImg.af_setImage(withURL: URL, placeholderImage: placeholderImage)
             cellImg.setRadius(radius: 25)
 
             cell.addSubview(cellImg)
-            
             
 
             cell.lblDate.setRadius(radius: 5)
@@ -211,7 +226,7 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
        
             
             cell.btnAccept.setRadius(radius: 13)
-            
+            cell.btnAccept.tag = indexPath.row
             
             cell.lblTo.text =  message[2] as? String
             cell.lblBody.text =  message[1] as? String
@@ -228,31 +243,9 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
     
     
     
-    /*
+
+            
     
-    // MARK: - Navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if  segue.identifier == blogSegueIdentifier{
-            let destination = segue.destinationViewController as? MailboxDetailViewController,
-            indexPath = self.tableView.indexPathForSelectedRow?.row
-            
-            let message = self.messages[indexPath!]
-            
-            destination?.to =  (message![2] as? String)!
-            destination?.subject =  (message![0] as? String)!
-            destination?.body =  (message![1] as? String)!
-            destination?.date =  (message![3] as? String)!
-            
-            
-            
-            //  print((visit["venue_name"] as? String)!)
-            //  print(indexPath.length)
-            
-        }
-        
-    }
-    
-*/
+
     
 }

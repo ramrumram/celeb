@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
+import KeychainSwift
 
 class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     // MARK: View Controller Life Cycle
@@ -25,6 +26,8 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
     
     @IBOutlet var lblRecordVideo: UILabel!
     @IBOutlet var stackTimer: UIView!
+    let keychain = KeychainSwift()
+    @IBOutlet var lblInfo: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +85,7 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
         changeCamera()
         toggleCaptureMode()
      
+        lblInfo.text = keychain.get("currentReqmsg")
 
     }
     
@@ -699,12 +703,33 @@ class VideoRecorderViewController: UIViewController, AVCaptureFileOutputRecordin
             
             //if true destroy the video and stay in the screen
             if self.destroySession == false {
-                let vc: VideoViewController? = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoViewController
-                if let validVC: VideoViewController = vc {
-                    validVC.videoURL = outputFileURL as NSURL?
-                    self.navigationController?.pushViewController(validVC, animated: true)
+                
+                
+                
+                let path = outputFileURL.path
+                if FileManager.default.fileExists(atPath: path) {
+                    
+                    do {
+                     let VD = try Data(contentsOf: outputFileURL)
+                        
+                        let vc: VideoViewController? = self.storyboard?.instantiateViewController(withIdentifier: "VideoVC") as? VideoViewController
+                        if let validVC: VideoViewController = vc {
+                            validVC.videoURL = outputFileURL as NSURL?
+                            validVC.videoData = VD
+                            self.navigationController?.pushViewController(validVC, animated: true)
+                            
+                        }                    }
+                    catch  let error {
+                        print (error)
+                        }
+                    
+                }else {
                     
                 }
+                
+                
+                
+              
 
                 
             }else {
