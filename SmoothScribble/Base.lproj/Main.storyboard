@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I5v-Fj-YR2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I5v-Fj-YR2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -77,7 +77,7 @@
         <!--Send Message View Controller-->
         <scene sceneID="rwa-Cd-tPS">
             <objects>
-                <viewController definesPresentationContext="YES" modalPresentationStyle="overCurrentContext" id="mSO-Nx-Ccv" customClass="SendMessageViewController" customModule="Celebgrams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendMsgPopup" definesPresentationContext="YES" modalPresentationStyle="overCurrentContext" id="mSO-Nx-Ccv" customClass="SendMessageViewController" customModule="Celebgrams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QSv-Ao-qWY"/>
                         <viewControllerLayoutGuide type="bottom" id="8b0-Ba-cYe"/>
@@ -175,6 +175,9 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" red="0.44844730389999998" green="0.44844730389999998" blue="0.44844730389999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="btnSubmit:" destination="mSO-Nx-Ccv" eventType="touchUpInside" id="hWz-bp-rhW"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -216,7 +219,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ya-1y-mxg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4140" y="-1236"/>
+            <point key="canvasLocation" x="-4948" y="-1668"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="mOT-CO-uEq">
@@ -416,7 +419,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P7a-Tb-nZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6078" y="-514"/>
+            <point key="canvasLocation" x="-4754" y="-564"/>
         </scene>
         <!--Video Recorder View Controller-->
         <scene sceneID="ZMq-Hj-Cfb">
@@ -746,7 +749,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="mSO-Nx-Ccv" kind="presentation" id="wVd-Hs-eNT"/>
+                                                    <action selector="btnSave:" destination="DnU-0f-osM" eventType="touchUpInside" id="2CC-eR-Vi6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -881,7 +884,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="380" height="120"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="epC-qn-KlC" id="cQ2-of-2LW">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="119"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="119.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYy-hw-q7K">
@@ -1021,7 +1024,7 @@
                                                 <rect key="frame" x="0.0" y="148" width="380" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="S97-Q9-Kmc" id="rVC-Dh-lDi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="99"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="99.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8g5-Wb-Pf1">
@@ -1205,7 +1208,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="380" height="120"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="GT9-Qz-91O" id="KSZ-8x-3Ei">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="119"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="119.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="chB-vm-UH9">
@@ -1345,7 +1348,7 @@
                                                 <rect key="frame" x="0.0" y="148" width="380" height="100"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="2Gx-2m-T6k" id="DIv-jb-CVs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="99"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="380" height="99.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Khw-Uj-6ur">
@@ -1756,6 +1759,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GtS-Sy-5U5" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1895" y="-1535"/>
+        </scene>
+        <!--Popup View Controller-->
+        <scene sceneID="cyL-3e-JeI">
+            <objects>
+                <viewController id="SPp-I6-3MB" customClass="PopupViewController" customModule="Celebgrams" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tPC-Yg-rfh"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ix6-HG-zle"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v0h-TH-nmg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EEj-WP-ooo">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N3o-lU-RJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

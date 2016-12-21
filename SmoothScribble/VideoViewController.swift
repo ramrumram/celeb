@@ -11,7 +11,7 @@ import AVKit
 import AVFoundation
 import Alamofire
 
-class VideoViewController: UIViewController {
+class VideoViewController: UIViewController, communicationControllerPopup {
     
     var videoData = Data()
     var videoURL = NSURL(string: "")
@@ -76,6 +76,8 @@ class VideoViewController: UIViewController {
         oplayer.play()
         
         
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -105,47 +107,46 @@ class VideoViewController: UIViewController {
     
     @IBAction func btnSave(_ sender: Any) {
         
- 
-            
-            // define parameters
-            let parameters = [
-                "hometown": "yalikavak",
-                "living": "istanbul"
-            ]
-            
-            Alamofire.upload(multipartFormData: { multipartFormData in
-                multipartFormData.append (self.videoData , withName: "file", fileName: "file.mov", mimeType: "video/quicktime")
-                
-                
-                for (key, value) in parameters {
-                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
-                }}, to: "http://192.168.2.17:8081/cgws/server-vid.php", method: .post, headers: ["Authorization": "auth_token"],
-                    encodingCompletion: { encodingResult in
-                        switch encodingResult {
-                        case .success(let upload, _, _):
-                            upload.response { [weak self] response in
-                                guard let strongSelf = self else {
-                                    return
-                                }
-                                debugPrint(response)
-                            }
-                        case .failure(let encodingError):
-                            print("error:\(encodingError)")
-                        }
-            })
-            
+       let popup: SendMessageViewController? = self.storyboard?.instantiateViewController(withIdentifier: "SendMsgPopup") as? SendMessageViewController
+        
+        popup?.delegate = self
 
+       self.present(popup!, animated: true, completion: nil)
+
+    }
+   
+
+    
+    func backFromPopup(value: String) {
+        
        
         
-       // let videodata = NSData(contentsOf: (videoURL?.filePathURL)! as URL)
-
+        // define parameters
+        let parameters = [
+            "message": value
+        ]
         
-      //  print(videodata)
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append (self.videoData , withName: "file", fileName: "file.mov", mimeType: "video/quicktime")
+            
+            
+            for (key, value) in parameters {
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+            }}, to: VID_UP_URL, method: .post, headers: ["Authorization": "auth_token"],
+                encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                    case .success(let upload, _, _):
+                        upload.response { [weak self] response in
+                            guard self != nil else {
+                                return
+                            }
+                            debugPrint(response)
+                        }
+                    case .failure(let encodingError):
+                        print("error:\(encodingError)")
+                    }
+        })
         
-        
-        
-        
-
     }
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false

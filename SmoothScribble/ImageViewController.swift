@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 import Alamofire
-class ImageViewController: UIViewController, UIScrollViewDelegate
+class ImageViewController: UIViewController, UIScrollViewDelegate, communicationControllerPopup
 {
     let stackView = UIStackView()
     var image: UIImage?
@@ -53,48 +53,55 @@ class ImageViewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func saveAs(_ sender: AnyObject) {
     
+        let popup: SendMessageViewController? = self.storyboard?.instantiateViewController(withIdentifier: "SendMsgPopup") as? SendMessageViewController
+        
+        popup?.delegate = self
+        
+        self.present(popup!, animated: true, completion: nil)
+        
+    }
+    
+    
+     func backFromPopup(value: String) {
+        
         UIGraphicsBeginImageContextWithOptions(viewContainer.bounds.size, viewContainer.isOpaque, 0.0)
         viewContainer!.drawHierarchy(in: viewContainer.bounds, afterScreenUpdates: false)
         let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-     
+        
         
         //UIImageWriteToSavedPhotosAlbum(snapshotImageFromMyView!, nil,nil, nil);
-    
+        
+        
+        // define parameters
+        let parameters = [
+            "message": value
+        ]
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            if let imageData = UIImageJPEGRepresentation(snapshotImageFromMyView!, 1) {
+                multipartFormData.append(imageData, withName: "file", fileName: "file.png", mimeType: "image/png")
+            }
             
-            // define parameters
-            let parameters = [
-                "hometown": "yalikavak",
-                "living": "istanbul"
-            ]
-            
-            Alamofire.upload(multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(snapshotImageFromMyView!, 1) {
-                    multipartFormData.append(imageData, withName: "file", fileName: "file.png", mimeType: "image/png")
-                }
-                
-                for (key, value) in parameters {
-                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
-                }}, to: "http://192.168.2.17:8081/cgws/server.php", method: .post, headers: ["Authorization": "auth_token"],
-                    encodingCompletion: { encodingResult in
-                        switch encodingResult {
-                        case .success(let upload, _, _):
-                            upload.response { [weak self] response in
-                                guard let strongSelf = self else {
-                                    return
-                                }
-                                debugPrint(response)
+            for (key, value) in parameters {
+                multipartFormData.append((value.data(using: .utf8))!, withName: key)
+            }}, to: IMG_UP_URL, method: .post, headers: ["Authorization": "auth_token"],
+                encodingCompletion: { encodingResult in
+                    switch encodingResult {
+                    case .success(let upload, _, _):
+                        upload.response { [weak self] response in
+                            guard self != nil else {
+                                return
                             }
-                        case .failure(let encodingError):
-                            print("error:\(encodingError)")
+                            debugPrint(response)
                         }
-            })
-      
+                    case .failure(let encodingError):
+                        print("error:\(encodingError)")
+                    }
+        })
         
     }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
       //  let value = UIInterfaceOrientation.landscapeLeft.rawValue

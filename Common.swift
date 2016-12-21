@@ -1,5 +1,9 @@
 import UIKit
 
+let WS_DOMAIN = "http://192.168.2.17:8081/cgws"
+let VID_UP_URL = WS_DOMAIN + "/server-vid.php"
+let IMG_UP_URL = WS_DOMAIN + "/server.php"
+
 extension UIView {
     func setRadius(radius: CGFloat) {
       // self.layer.borderWidth = 1.0

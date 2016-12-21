@@ -8,30 +8,37 @@
 
 import UIKit
 
+protocol communicationControllerPopup {
+    func backFromPopup(value : String)
+}
+
 class SendMessageViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet var viewClose: UIView!
   
     @IBOutlet var txtMessage: UITextView!
     
+    var delegate: communicationControllerPopup? = nil
+
+        @IBOutlet var viewPop: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+      //         print(viewPop)
         viewPop.setRadius(radius: 15)
        
         
-
+//
         txtMessage.text = "Add a caption"
         txtMessage.textColor = UIColor.lightGray
         
-                txtMessage.delegate = self
-    
+         txtMessage.delegate = self
       
         
          self.hideKeyboardWhenTappedAround()
+       
     }
 
     
@@ -52,16 +59,25 @@ class SendMessageViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet var viewPop: UIView!
+
     
 
     @IBAction func btnClose(_ sender: AnyObject) {
         
     
         self.presentingViewController?.dismiss(animated: false, completion: nil)
+        
 
     }
     
+    
+    @IBAction func btnSubmit(_ sender: Any) {
+        if( txtMessage.text != "Add a caption") {
+            self.delegate?.backFromPopup(value: txtMessage.text as String)
+            self.presentingViewController?.dismiss(animated: false, completion: nil)
+        }
+    }
+
     
     /*
     // MARK: - Navigation
