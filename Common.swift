@@ -1,8 +1,8 @@
 import UIKit
 
-let WS_DOMAIN = "http://192.168.2.17:8081/cgws"
+let WS_DOMAIN = "https://cgram.io/mobile"
 let VID_UP_URL = WS_DOMAIN + "/server-vid.php"
-let IMG_UP_URL = WS_DOMAIN + "/server.php"
+let IMG_UP_URL = WS_DOMAIN + "/celebrity/saveimage"
 
 extension UIView {
     func setRadius(radius: CGFloat) {
@@ -81,6 +81,22 @@ extension UIViewController {
 }
 
 
+extension String
+{
+    func trim() -> String
+    {
+        return self.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    func trunc(_ length: Int, trailing: String? = "...") -> String {
+        if self.characters.count > length {
+            return self.substring(to: self.characters.index(self.startIndex, offsetBy: length)) + (trailing ?? "")
+        } else {
+            return self
+        }
+    }
+    
+}
 
 extension UINavigationController {
     

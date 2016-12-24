@@ -8,14 +8,27 @@
 
 import UIKit
 import KeychainSwift
-
+import Alamofire
+import SwiftyJSON
 
 class LoginViewController: UIViewController {
 
     let keychain = KeychainSwift()
+    
+    let Fields = ["Email", "Password"]
+
+    @IBOutlet var txtPassword: UITextField!
+    
+    @IBOutlet var txtEmail: UITextField!
+    
+    @IBOutlet var lblError: UILabel!
+    
+    
+    @IBOutlet var lblError1: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.isHidden = false
         
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
@@ -39,21 +52,69 @@ class LoginViewController: UIViewController {
     
     @IBAction func login(_ sender: Any) {
         
-        let uid = "1"
-        keychain.set(uid, forKey: "CG_uid")
-       
         
-        let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
- 
+        var dict = Dictionary<Int, NSMutableArray>()
+        dict[0] = [txtEmail, lblError, ["not-empty", "email"] ] as NSMutableArray
+        dict[1] = [txtPassword, lblError1, ["not-empty"]] as NSMutableArray
+
         
-                self.navigationController?.pushViewController(vc!, animated: true)
         
+        
+        let validator = Validator()
+        
+        if(validator.validate(dict)) {
+
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
+            
+            Alamofire.request(WS_DOMAIN + "/celebrity/login",
+                method: .post,
+                parameters: ["username": txtEmail.text!.trim(), "password": txtPassword.text!.trim(), "format": "json"],
+                encoding: URLEncoding.default
+                ).validate().responseJSON { response in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                   
+                    
+               //     print (response.result.value)
+                    
+                    guard response.result.isSuccess else {
+                        self.lblError.text = "Invalid credentials"
+                        print("Error connecting remote: \(response.result.error)")
+                        //  completion(nil)
+                        return
+                    }
+                    
+                if let retval = response.result.value {
+                    let res = JSON(retval)
+                    
+//                     if (res["cid"])
+                        let uid = res["cid"].string
+                        self.keychain.set(uid!, forKey: "CG_uid")
+                    
+                    
+                      let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+                    
+                       self.navigationController?.pushViewController(vc!, animated: true)
+                }
+                
+            }
+
+        }
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        if (self.keychain.get("CG_uid") != nil) {
+            let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+            
+            self.navigationController?.pushViewController(vc!, animated: true)
+        }
+        
+        
         
         navigationController?.navigationBar.isHidden = true
     }

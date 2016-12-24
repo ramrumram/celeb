@@ -3,6 +3,7 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 import KeychainSwift
+import SideMenu
 //import CameraManager
 
 class MailboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate   {
@@ -52,8 +53,19 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
         self.navigationController?.navigationBar.titleTextAttributes = attributes
         
       
+        let menuLeftNavigationController = UISideMenuNavigationController()
+        menuLeftNavigationController.leftSide = true
+        SideMenuManager.menuLeftNavigationController = menuLeftNavigationController
+        let newViewController = self.storyboard?.instantiateViewController(withIdentifier: "LeftMenu") as! LeftMenuViewController
         
-     //   self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        let customViewControllersArray : NSArray = [newViewController]
+        menuLeftNavigationController.viewControllers = customViewControllersArray as! [UIViewController]
+       
+        
+        SideMenuManager.menuAddPanGestureToPresent(toView: self.navigationController!.navigationBar)
+        SideMenuManager.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        
+        
 
         
 
@@ -65,6 +77,10 @@ class MailboxViewController: UIViewController,UITableViewDataSource, UITableView
   //  }
   
     
+
+    @IBAction func listMenu(_ sender: Any) {
+        present(SideMenuManager.menuLeftNavigationController!, animated: true, completion: nil)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false

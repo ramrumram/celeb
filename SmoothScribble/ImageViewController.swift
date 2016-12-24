@@ -9,6 +9,8 @@
 import UIKit
 import KeychainSwift
 import Alamofire
+import NVActivityIndicatorView
+
 class ImageViewController: UIViewController, UIScrollViewDelegate, communicationControllerPopup
 {
     let stackView = UIStackView()
@@ -51,6 +53,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
     @IBOutlet var imgFilter: UIImageView!
     
     
+    
     @IBAction func saveAs(_ sender: AnyObject) {
     
         let popup: SendMessageViewController? = self.storyboard?.instantiateViewController(withIdentifier: "SendMsgPopup") as? SendMessageViewController
@@ -79,25 +82,50 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
             "message": value
         ]
         
+        
+        let req = self.keychain.get("currentReqID")
+        let up_url = IMG_UP_URL + "/" + self.keychain.get("CG_uid")!
+        
+        
+        let alert = UIAlertController(title: "Error", message: "Error in uploading your picture! please try again later", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        
+        let frame = CGRect(x: (screenSize.width / 2) - 10, y: screenSize.height / 2, width: 30, height: 30)
+        NVActivityIndicatorView.DEFAULT_TYPE = .ballPulseSync
+        let activityIndicatorView = NVActivityIndicatorView(frame: frame)
+        self.view.addSubview(activityIndicatorView)
+
+        activityIndicatorView.startAnimating()
+       // let
         Alamofire.upload(multipartFormData: { multipartFormData in
             if let imageData = UIImageJPEGRepresentation(snapshotImageFromMyView!, 1) {
-                multipartFormData.append(imageData, withName: "file", fileName: "file.png", mimeType: "image/png")
+                multipartFormData.append(imageData, withName: "file", fileName: "Image_"+req!+".png", mimeType: "image/png")
             }
             
             for (key, value) in parameters {
                 multipartFormData.append((value.data(using: .utf8))!, withName: key)
-            }}, to: IMG_UP_URL, method: .post, headers: ["Authorization": "auth_token"],
+            }}, to: up_url, method: .post, headers: ["Authorization": "auth_token"],
                 encodingCompletion: { encodingResult in
+                    
                     switch encodingResult {
                     case .success(let upload, _, _):
+
                         upload.response { [weak self] response in
                             guard self != nil else {
+                                self?.present(alert, animated: true, completion: nil)
                                 return
                             }
-                            debugPrint(response)
+ 
+                            activityIndicatorView.stopAnimating()
+                            
+                            let vc: MailboxViewController? = self?.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+                            
+                            self?.navigationController?.pushViewController(vc!, animated: true)
+                           // debugPrint(response)
+
                         }
                     case .failure(let encodingError):
-                        print("error:\(encodingError)")
+                          self.present(alert, animated: true, completion: nil)
                     }
         })
         
@@ -124,7 +152,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
     {
         super.viewDidLoad()
         
-    
+        
+       
+        
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         
@@ -137,6 +167,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
 
         
         stackView.addArrangedSubview(hermiteScribbleView)
+        
         
         
 //        applyFilter

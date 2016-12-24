@@ -26,9 +26,12 @@
 		D7135FE51DA78456003FA1C1 /* MailboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7135FE41DA78456003FA1C1 /* MailboxViewController.swift */; };
 		D7135FE71DA7848E003FA1C1 /* MailboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7135FE61DA7848E003FA1C1 /* MailboxTableViewCell.swift */; };
 		D736B7251DAD12AF00E28419 /* SendMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */; };
+		D738EB8D1E0CF1E000578856 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738EB8C1E0CF1E000578856 /* LeftMenuViewController.swift */; };
+		D738EB8F1E0E6B8E00578856 /* NVActivityIndicatorView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D738EB8E1E0E6B8E00578856 /* NVActivityIndicatorView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D73C2F121DA2774C00A113F1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73C2F111DA2774C00A113F1 /* LoginViewController.swift */; };
-		D73CFAEB1D994B49004DFE91 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73CFAEA1D994B49004DFE91 /* HomeViewController.swift */; };
 		D749E2561D997EA100F15DE3 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D749E2551D997EA100F15DE3 /* CameraViewController.swift */; };
+		D74A76881E0B8C38003510EE /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74A76871E0B8C38003510EE /* Validator.swift */; };
+		D74A768B1E0CDBE0003510EE /* SideMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D74A768A1E0CDBE0003510EE /* SideMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D77B6EA11DA66A20000AF300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77B6EA01DA66A20000AF300 /* Assets.xcassets */; };
 		D77DE5C21DFB09550094A910 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DE5C11DFB09550094A910 /* PopupViewController.swift */; };
 		D790C8431D9A8691005791C9 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D790C8421D9A8691005791C9 /* Common.swift */; };
@@ -46,6 +49,8 @@
 				D70A2BCF1DF8168200FBD492 /* AlamofireImage.framework in Embed Frameworks */,
 				D70A2BD01DF8168200FBD492 /* CameraManager.framework in Embed Frameworks */,
 				D70A2BD11DF8168200FBD492 /* KeychainSwift.framework in Embed Frameworks */,
+				D74A768B1E0CDBE0003510EE /* SideMenu.framework in Embed Frameworks */,
+				D738EB8F1E0E6B8E00578856 /* NVActivityIndicatorView.framework in Embed Frameworks */,
 				D70A2BD21DF8168200FBD492 /* SwiftyJSON.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -73,15 +78,18 @@
 		D7135FDE1DA76032003FA1C1 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		D7135FE21DA76A2A003FA1C1 /* ImageRequestsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRequestsTableViewController.swift; sourceTree = "<group>"; };
 		D7135FE41DA78456003FA1C1 /* MailboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MailboxViewController.swift; path = ../../MailboxViewController.swift; sourceTree = "<group>"; };
-		D7135FE61DA7848E003FA1C1 /* MailboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MailboxTableViewCell.swift; sourceTree = "<group>"; };
+		D7135FE61DA7848E003FA1C1 /* MailboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MailboxTableViewCell.swift; path = ../../MailboxTableViewCell.swift; sourceTree = "<group>"; };
 		D7135FF11DA7AC4A003FA1C1 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendMessageViewController.swift; sourceTree = "<group>"; };
+		D738EB8C1E0CF1E000578856 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		D738EB8E1E0E6B8E00578856 /* NVActivityIndicatorView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NVActivityIndicatorView.framework; path = Carthage/Build/iOS/NVActivityIndicatorView.framework; sourceTree = "<group>"; };
 		D73C2F111DA2774C00A113F1 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = components/LoginViewController.swift; sourceTree = "<group>"; };
-		D73CFAEA1D994B49004DFE91 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = components/HomeViewController.swift; sourceTree = "<group>"; };
 		D749E2551D997EA100F15DE3 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		D74A76871E0B8C38003510EE /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = ../Validator.swift; sourceTree = "<group>"; };
+		D74A768A1E0CDBE0003510EE /* SideMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenu.framework; path = Carthage/Build/iOS/SideMenu.framework; sourceTree = "<group>"; };
 		D77B6EA01DA66A20000AF300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D77DE5C11DFB09550094A910 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
-		D790C8421D9A8691005791C9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		D790C8421D9A8691005791C9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = ../../Common.swift; sourceTree = "<group>"; };
 		D7A1B17E1DF8095100AE2CAD /* Celebgrams.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Celebgrams.entitlements; sourceTree = SOURCE_ROOT; };
 		D7EFD4F81DB66EEA0027C490 /* AvenirNextLTPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextLTPro-Regular.otf"; sourceTree = "<group>"; };
 		D7EFD4FB1DB676D50027C490 /* AvenirNextLTPro-Demi.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextLTPro-Demi.otf"; sourceTree = "<group>"; };
@@ -102,6 +110,8 @@
 		3EA13A831BEBDA0600E2B70F = {
 			isa = PBXGroup;
 			children = (
+				D738EB8E1E0E6B8E00578856 /* NVActivityIndicatorView.framework */,
+				D74A768A1E0CDBE0003510EE /* SideMenu.framework */,
 				D70A2BC91DF8168200FBD492 /* Alamofire.framework */,
 				D70A2BCA1DF8168200FBD492 /* AlamofireImage.framework */,
 				D70A2BCB1DF8168200FBD492 /* CameraManager.framework */,
@@ -109,8 +119,6 @@
 				D70A2BCD1DF8168200FBD492 /* SwiftyJSON.framework */,
 				D7135FF11DA7AC4A003FA1C1 /* Alamofire.framework */,
 				D7EFD4F91DB676830027C490 /* resources */,
-				D7135FE61DA7848E003FA1C1 /* MailboxTableViewCell.swift */,
-				D790C8421D9A8691005791C9 /* Common.swift */,
 				3EA13A8E1BEBDA0600E2B70F /* Celebgrams */,
 				3EA13A8D1BEBDA0600E2B70F /* Products */,
 				D749E2521D997CCD00F15DE3 /* Frameworks */,
@@ -129,11 +137,13 @@
 			isa = PBXGroup;
 			children = (
 				D7A1B17E1DF8095100AE2CAD /* Celebgrams.entitlements */,
+				D74A76891E0B8C73003510EE /* includes */,
 				3EA13AA91BEBDA9500E2B70F /* components */,
 				3EA13AAB1BEBDA9500E2B70F /* extensions */,
 				3EA13A8F1BEBDA0600E2B70F /* AppDelegate.swift */,
 				D7135FDC1DA7600F003FA1C1 /* PhotoCaptureDelegate.swift */,
 				D7135FDE1DA76032003FA1C1 /* VideoViewController.swift */,
+				D738EB8C1E0CF1E000578856 /* LeftMenuViewController.swift */,
 				D7135FD81DA75E07003FA1C1 /* VideoRecorderViewController.swift */,
 				D7135FDA1DA75FD0003FA1C1 /* PreviewView.swift */,
 				3EA13A911BEBDA0600E2B70F /* ImageViewController.swift */,
@@ -144,7 +154,6 @@
 				D77B6EA01DA66A20000AF300 /* Assets.xcassets */,
 				D73C2F111DA2774C00A113F1 /* LoginViewController.swift */,
 				D749E2551D997EA100F15DE3 /* CameraViewController.swift */,
-				D73CFAEA1D994B49004DFE91 /* HomeViewController.swift */,
 				3EA13A981BEBDA0600E2B70F /* LaunchScreen.storyboard */,
 				3EA13A9B1BEBDA0600E2B70F /* Info.plist */,
 			);
@@ -155,6 +164,7 @@
 		3EA13AA91BEBDA9500E2B70F /* components */ = {
 			isa = PBXGroup;
 			children = (
+				D7135FE61DA7848E003FA1C1 /* MailboxTableViewCell.swift */,
 				D7135FE41DA78456003FA1C1 /* MailboxViewController.swift */,
 				D7EFD4FC1DB678DC0027C490 /* VideoRequestsTableViewController.swift */,
 				3EA13AAA1BEBDA9500E2B70F /* Scribblable.swift */,
@@ -175,6 +185,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D74A76891E0B8C73003510EE /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				D790C8421D9A8691005791C9 /* Common.swift */,
+				D74A76871E0B8C38003510EE /* Validator.swift */,
+			);
+			name = includes;
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		D7EFD4F91DB676830027C490 /* resources */ = {
@@ -267,7 +287,6 @@
 			files = (
 				D7135FD91DA75E07003FA1C1 /* VideoRecorderViewController.swift in Sources */,
 				D7135FE51DA78456003FA1C1 /* MailboxViewController.swift in Sources */,
-				D73CFAEB1D994B49004DFE91 /* HomeViewController.swift in Sources */,
 				D7135FDF1DA76032003FA1C1 /* VideoViewController.swift in Sources */,
 				3EA13A921BEBDA0600E2B70F /* ImageViewController.swift in Sources */,
 				D77DE5C21DFB09550094A910 /* PopupViewController.swift in Sources */,
@@ -277,11 +296,13 @@
 				D7135FDB1DA75FD0003FA1C1 /* PreviewView.swift in Sources */,
 				D736B7251DAD12AF00E28419 /* SendMessageViewController.swift in Sources */,
 				D7135FDD1DA7600F003FA1C1 /* PhotoCaptureDelegate.swift in Sources */,
+				D74A76881E0B8C38003510EE /* Validator.swift in Sources */,
 				D73C2F121DA2774C00A113F1 /* LoginViewController.swift in Sources */,
 				3EA13AAE1BEBDA9500E2B70F /* UIBezierPathExtension.swift in Sources */,
 				D7135FE71DA7848E003FA1C1 /* MailboxTableViewCell.swift in Sources */,
 				D749E2561D997EA100F15DE3 /* CameraViewController.swift in Sources */,
 				D790C8431D9A8691005791C9 /* Common.swift in Sources */,
+				D738EB8D1E0CF1E000578856 /* LeftMenuViewController.swift in Sources */,
 				D7135FE31DA76A2A003FA1C1 /* ImageRequestsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,7 +436,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.celebgrams.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -439,7 +460,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.celebgrams.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
