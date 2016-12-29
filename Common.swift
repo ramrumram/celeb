@@ -1,8 +1,9 @@
 import UIKit
 
 let WS_DOMAIN = "https://cgram.io/mobile"
-let VID_UP_URL = WS_DOMAIN + "/server-vid.php"
+let VID_UP_URL = WS_DOMAIN + "/celebrity/savevideo"
 let IMG_UP_URL = WS_DOMAIN + "/celebrity/saveimage"
+let TOKEN = "BKiZEbrWjGETfWQr5ymr"
 
 extension UIView {
     func setRadius(radius: CGFloat) {

@@ -111,7 +111,9 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
         
         
         let cid = self.keychain.get("CG_uid")!
-        Alamofire.request("https://cgram.io/russ/cgrams-web/videojson.php?cid="+cid).responseJSON { response in
+//        "https://cgram.io/russ/cgrams-web/videojson.php"
+        
+         Alamofire.request(WS_DOMAIN+"/celebrity/allrequests/"+cid+"?token="+TOKEN).responseJSON { response in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             
@@ -119,13 +121,13 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
                 let res = JSON(retval)
                 
                 
-                if let inbox = res["data"].array {
+                if let inbox = res["Videos"].array {
                     
                     var i = 0
                     while i < inbox.count {
                         
                         
-                        var tpic = ""
+                        var tpic = "https://cgram.io/russ/cgrams-web/prof/1.png"
                         var tto = ""
                         var tmsg = ""
                         var tdate = ""
@@ -135,14 +137,14 @@ class VideoRequestsTableViewController: UIViewController,UITableViewDataSource, 
                         if let pic = inbox[i]["pic"].string {
                             tpic = pic
                         }
-                        if let msg = inbox[i]["message"].string {
+                        if let msg = inbox[i]["Statement"].string {
                             tmsg = msg
                         }
-                        if let to = inbox[i]["recipient"].string {
-                            tto = to
+                        if let tof = inbox[i]["ToFirstName"].string, let tol = inbox[i]["ToLastName"].string {
+                            tto = tof + tol
                         }
                         
-                        if let id = inbox[i]["id"].string {
+                        if let id = inbox[i]["RequestID"].string {
                             tid = id
                         }
                         

@@ -1077,7 +1077,7 @@
         <!--Service queue-->
         <scene sceneID="l8v-4G-1gD">
             <objects>
-                <viewController id="Vih-Rd-8vh" customClass="VideoRequestsTableViewController" customModule="Celebgrams" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoQueue" id="Vih-Rd-8vh" customClass="VideoRequestsTableViewController" customModule="Celebgrams" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7P7-cV-NvZ"/>
                         <viewControllerLayoutGuide type="bottom" id="194-m2-Aea"/>
@@ -1734,7 +1734,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rzg-ej-CuL"/>
-        <segue reference="per-ey-2tb"/>
         <segue reference="Oxy-o1-UoB"/>
+        <segue reference="AFc-75-eWH"/>
     </inferredMetricsTieBreakers>
 </document>

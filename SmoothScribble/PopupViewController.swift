@@ -14,7 +14,6 @@ class PopupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print ("3343434343434343434")
         self.delegate?.backFromPopup()
         // Do any additional setup after loading the view.
     }

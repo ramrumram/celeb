@@ -79,7 +79,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
         
         // define parameters
         let parameters = [
-            "message": value
+            "message": value,
+            "token": TOKEN
         ]
         
         
@@ -104,7 +105,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
             
             for (key, value) in parameters {
                 multipartFormData.append((value.data(using: .utf8))!, withName: key)
-            }}, to: up_url, method: .post, headers: ["Authorization": "auth_token"],
+            }}, to: up_url, method: .post,
                 encodingCompletion: { encodingResult in
                     
                     switch encodingResult {
@@ -117,11 +118,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
                             }
  
                             activityIndicatorView.stopAnimating()
-                            
+                          //  debugPrint(response)
                             let vc: MailboxViewController? = self?.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
                             
                             self?.navigationController?.pushViewController(vc!, animated: true)
-                           // debugPrint(response)
+                           
 
                         }
                     case .failure(let encodingError):
@@ -152,15 +153,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
     {
         super.viewDidLoad()
         
-        
-       
-        
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
         
         scrollView.isScrollEnabled = false
         
-         
         imgView.image = image!
         
         viewContainer.addSubview(stackView)
@@ -169,29 +165,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate, communication
         stackView.addArrangedSubview(hermiteScribbleView)
         
         
+   
         
 //        applyFilter
    
-  
-     /*   let point = CGPoint()
-        UIGraphicsBeginImageContextWithOptions((imgView.image?.size)!, false, 0.0)
-        imgView.image?.draw(in: CGRect(x: 0, y: 0, width: (imgView.image?.size.width)!, height: (imgView.image?.size.height)!))
-        imgFilter.image?.draw(in: CGRect(x: point.x, y: point.y, width: (imgView.image?.size.width)!, height: (imgView.image?.size.height)!))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        imgView.image = newImage
-        
-        */
+
         
         portraitOps()
  
     }
-    
- 
-
- 
 
     
     

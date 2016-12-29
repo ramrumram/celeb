@@ -71,7 +71,7 @@ class CameraViewController: UIViewController {
     
     fileprivate func addCameraToView()
     {
-        cameraManager.cameraOutputQuality = .high
+        cameraManager.cameraOutputQuality = .low
 
         cameraManager.addPreviewLayerToView(cameraView, newCameraOutputMode: CameraOutputMode.stillImage)
         cameraManager.showErrorBlock = { [weak self] (erTitle: String, erMessage: String) -> Void in

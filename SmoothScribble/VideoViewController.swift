@@ -10,6 +10,8 @@ import UIKit
 import AVKit
 import AVFoundation
 import Alamofire
+import KeychainSwift
+import NVActivityIndicatorView
 
 class VideoViewController: UIViewController, communicationControllerPopup {
     
@@ -29,7 +31,10 @@ class VideoViewController: UIViewController, communicationControllerPopup {
     
     @IBOutlet var viewHomePrev: UIView!
     
+    let keychain = KeychainSwift()
     
+    var screenSize: CGRect = UIScreen.main.bounds
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,27 +128,47 @@ class VideoViewController: UIViewController, communicationControllerPopup {
         
         // define parameters
         let parameters = [
-            "message": value
+            "message": value,
+             "token": TOKEN
         ]
         
+        let req = self.keychain.get("currentReqID")
+        let up_url = VID_UP_URL + "/" + self.keychain.get("CG_uid")!
+
+        let alert = UIAlertController(title: "Error", message: "Error in uploading your picture! please try again later", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        
+        let frame = CGRect(x: (screenSize.width / 2) - 10, y: screenSize.height / 2, width: 30, height: 30)
+        NVActivityIndicatorView.DEFAULT_TYPE = .ballPulseSync
+        let activityIndicatorView = NVActivityIndicatorView(frame: frame)
+        self.view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.startAnimating()
+
+        
         Alamofire.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append (self.videoData , withName: "file", fileName: "file.mov", mimeType: "video/quicktime")
+            multipartFormData.append (self.videoData , withName: "file", fileName: "Video_"+req!+".mov", mimeType: "video/quicktime")
             
             
             for (key, value) in parameters {
                 multipartFormData.append((value.data(using: .utf8))!, withName: key)
-            }}, to: VID_UP_URL, method: .post, headers: ["Authorization": "auth_token"],
+            }}, to: up_url, method: .post,
                 encodingCompletion: { encodingResult in
                     switch encodingResult {
                     case .success(let upload, _, _):
                         upload.response { [weak self] response in
                             guard self != nil else {
+                                self?.present(alert, animated: true, completion: nil)
                                 return
                             }
-                            debugPrint(response)
+                            activityIndicatorView.stopAnimating()
+                            //  debugPrint(response)
+                            let vc: VideoRequestsTableViewController? = self?.storyboard?.instantiateViewController(withIdentifier: "VideoQueue") as? VideoRequestsTableViewController
+                            
+                            self?.navigationController?.pushViewController(vc!, animated: true)
                         }
                     case .failure(let encodingError):
-                        print("error:\(encodingError)")
+                        self.present(alert, animated: true, completion: nil)
                     }
         })
         
