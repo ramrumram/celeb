@@ -87,12 +87,17 @@ class LoginViewController: UIViewController {
                 if let retval = response.result.value {
                     let res = JSON(retval)
                     
-//                     if (res["cid"])
+
                         let uid = res["cid"].string
                         self.keychain.set(uid!, forKey: "CG_uid")
                     
                     
-                      let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+//                      let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+                    
+                  //  let vc: ImageViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageVC") as? ImageViewController
+                    
+                    let vc: SignViewController? = self.storyboard?.instantiateViewController(withIdentifier: "SignVC") as? SignViewController
+  
                     
                        self.navigationController?.pushViewController(vc!, animated: true)
                 }
@@ -109,7 +114,11 @@ class LoginViewController: UIViewController {
         
         
         if (self.keychain.get("CG_uid") != nil) {
-            let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+       //     let vc: MailboxViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageQueue") as? MailboxViewController
+            
+           //  let vc: ImageViewController? = self.storyboard?.instantiateViewController(withIdentifier: "ImageVC") as? ImageViewController
+            
+             let vc: SignViewController? = self.storyboard?.instantiateViewController(withIdentifier: "SignVC") as? SignViewController
             
             self.navigationController?.pushViewController(vc!, animated: true)
         }

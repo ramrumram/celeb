@@ -36,6 +36,8 @@ extension UIView {
         self.layer.addSublayer(border)
     }
     
+    
+    
    
 }
 
@@ -126,4 +128,8 @@ extension UINavigationController {
             }
             return super.supportedInterfaceOrientations
         }
-    }}
+    }
+}
+
+
+

@@ -25,6 +25,7 @@ class ScribbleView: UIView
     let backgroundLayer1 = CAShapeLayer()
     let backgroundLayer2 = CAShapeLayer()
     
+    
     let LineLayer = CAShapeLayer()
     let LineLayer2 = CAShapeLayer()
     
@@ -37,7 +38,11 @@ class ScribbleView: UIView
     
     required init()
     {
-        super.init(frame: CGRect.zero)
+       // super.init(frame: CGRect.zero)
+        
+        print ("local called")
+        super.init(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+       
         
         backgroundLayer1.strokeColor = UIColor.white.cgColor
         backgroundLayer1.fillColor = nil
@@ -61,6 +66,10 @@ class ScribbleView: UIView
         
         
         
+      
+       
+        
+        
        
         LineLayer.lineWidth = 1.0
         LineLayer.fillColor = nil
@@ -72,8 +81,7 @@ class ScribbleView: UIView
         LineLayer2.fillColor = nil
         LineLayer2.bounds = CGRect(x: 0.0, y: 0.0, width: screenHeight / 1.2, height: 2)
         LineLayer2.path = UIBezierPath(rect: LineLayer2.bounds).cgPath
-
-        
+ 
  
         
         
@@ -82,15 +90,10 @@ class ScribbleView: UIView
         
         layer.addSublayer(drawingLayer)
         
-       /* titleLabel.text = title
-        titleLabel.textAlignment = NSTextAlignment.center
-        titleLabel.textColor = UIColor.blue
-        addSubview(titleLabel)
-        */
-      //  layer.borderColor = UIColor.blue.cgColor
-      //  layer.borderWidth = 1
+ 
         
         layer.masksToBounds = true
+        
         
       
         
@@ -103,10 +106,10 @@ class ScribbleView: UIView
     
     override func layoutSubviews()
     {
-        titleLabel.frame = CGRect(x: 0,
-            y: frame.height - titleLabel.intrinsicContentSize.height - 2,
-            width: frame.width,
-            height: titleLabel.intrinsicContentSize.height)
+      //  titleLabel.frame = CGRect(x: 0,
+       //     y: frame.height - titleLabel.intrinsicContentSize.height - 2,
+       //     width: frame.width,
+       //     height: titleLabel.intrinsicContentSize.height)
     }
 }
 
@@ -125,11 +128,13 @@ class HermiteScribbleView: ScribbleView, Scribblable
     }
     
     required init() {
+        print ("calling parent")
         super.init()
        
         //  fatalError("init(title:) has not been implemented")
         
     }
+
 
     
     func triggerLandscape() {
@@ -142,12 +147,13 @@ class HermiteScribbleView: ScribbleView, Scribblable
            LineLayer2.position = CGPoint(x: screenHeight / 2.1, y: screenHeight / 2.3 );
            LineLayer.isHidden = false
            LineLayer2.isHidden = false
+
         
     }
 
     func triggerPotrait() {
         
-        
+       /*
          backgroundLayer1.lineWidth = 5
          backgroundLayer2.lineWidth = 5
         backgroundLayer1.isHidden = false
@@ -158,7 +164,7 @@ class HermiteScribbleView: ScribbleView, Scribblable
         
         LineLayer.isHidden = true
         LineLayer2.isHidden = true
-      
+      */
         
     }
     
@@ -179,7 +185,7 @@ class HermiteScribbleView: ScribbleView, Scribblable
 
     func appendScribble(_ point: CGPoint)
     {
-        if(currentStage == 1 || currentStage == 2) {
+        if(currentStage == 0 || currentStage == 1) {
       
         interpolationPoints.append(point)
         
@@ -195,7 +201,7 @@ class HermiteScribbleView: ScribbleView, Scribblable
     func endScribble()
     {
         
-        if(currentStage == 1) {
+        if(currentStage == 0) {
         if let backgroundPath = backgroundLayer1.path
         {
             hermitePath.append(UIBezierPath(cgPath: backgroundPath))
@@ -214,12 +220,22 @@ class HermiteScribbleView: ScribbleView, Scribblable
         hermitePath.removeAllPoints()
         
         drawingLayer.path = hermitePath.cgPath
+        
+        
+        
+        
+        
+        
+        
+    
+
+        
  
     }
     
     func clearScribble()
     {
-        if(currentStage == 1) {
+        if(currentStage == 0) {
             backgroundLayer1.path = nil
         }else{
             backgroundLayer2.path = nil

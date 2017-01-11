@@ -33,8 +33,11 @@
 		D74A76881E0B8C38003510EE /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74A76871E0B8C38003510EE /* Validator.swift */; };
 		D74A768B1E0CDBE0003510EE /* SideMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D74A768A1E0CDBE0003510EE /* SideMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D77B6EA11DA66A20000AF300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77B6EA01DA66A20000AF300 /* Assets.xcassets */; };
-		D77DE5C21DFB09550094A910 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DE5C11DFB09550094A910 /* PopupViewController.swift */; };
 		D790C8431D9A8691005791C9 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = D790C8421D9A8691005791C9 /* Common.swift */; };
+		D79F53211E1FBE22003E7B48 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F53201E1FBE22003E7B48 /* SignViewController.swift */; };
+		D79F53231E20793A003E7B48 /* bkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F53221E20793A003E7B48 /* bkViewController.swift */; };
+		D79F53251E23411F003E7B48 /* dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F53241E23411F003E7B48 /* dummy.swift */; };
+		D79F538A1E263FC6003E7B48 /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79F53891E263FC6003E7B48 /* FinalViewController.swift */; };
 		D7EFD4FD1DB678DC0027C490 /* VideoRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EFD4FC1DB678DC0027C490 /* VideoRequestsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,8 +91,11 @@
 		D74A76871E0B8C38003510EE /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = ../Validator.swift; sourceTree = "<group>"; };
 		D74A768A1E0CDBE0003510EE /* SideMenu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SideMenu.framework; path = Carthage/Build/iOS/SideMenu.framework; sourceTree = "<group>"; };
 		D77B6EA01DA66A20000AF300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D77DE5C11DFB09550094A910 /* PopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
 		D790C8421D9A8691005791C9 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = ../../Common.swift; sourceTree = "<group>"; };
+		D79F53201E1FBE22003E7B48 /* SignViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
+		D79F53221E20793A003E7B48 /* bkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bkViewController.swift; sourceTree = "<group>"; };
+		D79F53241E23411F003E7B48 /* dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dummy.swift; sourceTree = "<group>"; };
+		D79F53891E263FC6003E7B48 /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
 		D7A1B17E1DF8095100AE2CAD /* Celebgrams.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Celebgrams.entitlements; sourceTree = SOURCE_ROOT; };
 		D7EFD4F81DB66EEA0027C490 /* AvenirNextLTPro-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextLTPro-Regular.otf"; sourceTree = "<group>"; };
 		D7EFD4FB1DB676D50027C490 /* AvenirNextLTPro-Demi.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AvenirNextLTPro-Demi.otf"; sourceTree = "<group>"; };
@@ -110,6 +116,7 @@
 		3EA13A831BEBDA0600E2B70F = {
 			isa = PBXGroup;
 			children = (
+				D79F53891E263FC6003E7B48 /* FinalViewController.swift */,
 				D738EB8E1E0E6B8E00578856 /* NVActivityIndicatorView.framework */,
 				D74A768A1E0CDBE0003510EE /* SideMenu.framework */,
 				D70A2BC91DF8168200FBD492 /* Alamofire.framework */,
@@ -147,8 +154,9 @@
 				D7135FD81DA75E07003FA1C1 /* VideoRecorderViewController.swift */,
 				D7135FDA1DA75FD0003FA1C1 /* PreviewView.swift */,
 				3EA13A911BEBDA0600E2B70F /* ImageViewController.swift */,
+				D79F53201E1FBE22003E7B48 /* SignViewController.swift */,
+				D79F53221E20793A003E7B48 /* bkViewController.swift */,
 				3EA13A931BEBDA0600E2B70F /* Main.storyboard */,
-				D77DE5C11DFB09550094A910 /* PopupViewController.swift */,
 				D736B7241DAD12AF00E28419 /* SendMessageViewController.swift */,
 				D7135FE21DA76A2A003FA1C1 /* ImageRequestsTableViewController.swift */,
 				D77B6EA01DA66A20000AF300 /* Assets.xcassets */,
@@ -168,6 +176,7 @@
 				D7135FE41DA78456003FA1C1 /* MailboxViewController.swift */,
 				D7EFD4FC1DB678DC0027C490 /* VideoRequestsTableViewController.swift */,
 				3EA13AAA1BEBDA9500E2B70F /* Scribblable.swift */,
+				D79F53241E23411F003E7B48 /* dummy.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -289,17 +298,20 @@
 				D7135FE51DA78456003FA1C1 /* MailboxViewController.swift in Sources */,
 				D7135FDF1DA76032003FA1C1 /* VideoViewController.swift in Sources */,
 				3EA13A921BEBDA0600E2B70F /* ImageViewController.swift in Sources */,
-				D77DE5C21DFB09550094A910 /* PopupViewController.swift in Sources */,
+				D79F53251E23411F003E7B48 /* dummy.swift in Sources */,
 				D7EFD4FD1DB678DC0027C490 /* VideoRequestsTableViewController.swift in Sources */,
 				3EA13A901BEBDA0600E2B70F /* AppDelegate.swift in Sources */,
 				3EA13AAD1BEBDA9500E2B70F /* Scribblable.swift in Sources */,
 				D7135FDB1DA75FD0003FA1C1 /* PreviewView.swift in Sources */,
 				D736B7251DAD12AF00E28419 /* SendMessageViewController.swift in Sources */,
 				D7135FDD1DA7600F003FA1C1 /* PhotoCaptureDelegate.swift in Sources */,
+				D79F53211E1FBE22003E7B48 /* SignViewController.swift in Sources */,
 				D74A76881E0B8C38003510EE /* Validator.swift in Sources */,
 				D73C2F121DA2774C00A113F1 /* LoginViewController.swift in Sources */,
+				D79F53231E20793A003E7B48 /* bkViewController.swift in Sources */,
 				3EA13AAE1BEBDA9500E2B70F /* UIBezierPathExtension.swift in Sources */,
 				D7135FE71DA7848E003FA1C1 /* MailboxTableViewCell.swift in Sources */,
+				D79F538A1E263FC6003E7B48 /* FinalViewController.swift in Sources */,
 				D749E2561D997EA100F15DE3 /* CameraViewController.swift in Sources */,
 				D790C8431D9A8691005791C9 /* Common.swift in Sources */,
 				D738EB8D1E0CF1E000578856 /* LeftMenuViewController.swift in Sources */,
